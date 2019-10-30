@@ -43,11 +43,11 @@ class Acteco(models.Model):
 
     internet_available = fields.Boolean('Disponible Internet')
 
+    @api.one
     @api.onchange('activity')
     def _to_upper(self):
-        for item in self:
-            act = str(item.activity)
-            item.activity = act.upper()
+        act = str(self.activity)
+        self.activity = act.upper()
 
 #    @api.model
 #    def create(self, values):
