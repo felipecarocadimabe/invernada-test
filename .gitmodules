@@ -1,0 +1,4 @@
+[submodule "felipecarocadimabe/odoo_12_reception_check_list"]
+	path = felipecarocadimabe/odoo_12_reception_check_list
+	url = git@github.com:felipecarocadimabe/odoo_12_reception_check_list.git
+	branch = master
