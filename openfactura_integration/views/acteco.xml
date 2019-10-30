@@ -19,7 +19,7 @@
 
     <record model="ir.actions.act_window" id="openfactura_integration.action_window">
       <field name="name">openfactura_integration window</field>
-      <field name="res_model">openfactura_integration.acteco</field>
+      <field name="res_model">acteco</field>
       <field name="view_mode">tree,form</field>
     </record>
 
