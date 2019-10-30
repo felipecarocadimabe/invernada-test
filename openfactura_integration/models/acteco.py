@@ -1,4 +1,5 @@
-from odoo import models, fields, api, exceptions
+from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class Acteco(models.Model):
@@ -42,9 +43,8 @@ class Acteco(models.Model):
         acteco = self.env['acteco'].search([('code', '=', values['code'])])
 
         if acteco is not None:
-            raise ValueError(
+            raise ValidationError(
                 'código de acteco ya existe'
-                'code'
             )
 
         return super(Acteco, self).create()
