@@ -44,7 +44,6 @@ class Acteco(models.Model):
     internet_available = fields.Boolean('Disponible Internet')
 
     @api.onchange('activity')
-    @api.model
     def _to_upper(self):
         act = str(self.activity)
         self.activity = act.upper()
