@@ -16,13 +16,13 @@
     -->
 
     <!-- actions opening views on models -->
-    <!--
+
     <record model="ir.actions.act_window" id="openfactura-integration.action_window">
-      <field name="name">openfactura-integration window</field>
-      <field name="res_model">openfactura-integration.openfactura-integration</field>
+      <field name="name">Acteco Window</field>
+      <field name="res_model">openfactura-integration.acteco</field>
       <field name="view_mode">tree,form</field>
     </record>
-    -->
+
 
     <!-- server action to the one above -->
     <!--
@@ -45,14 +45,14 @@
     <menuitem name="openfactura-integration" id="openfactura-integration.menu_root"/>
     -->
     <!-- menu categories -->
-    <!--
-    <menuitem name="Menu 1" id="openfactura-integration.menu_1" parent="openfactura-integration.menu_root"/>
-    <menuitem name="Menu 2" id="openfactura-integration.menu_2" parent="openfactura-integration.menu_root"/>
-    -->
+
+    <menuitem name="SII" id="openfactura-integration.sii" parent="account_accountant.menu_accounting"/>
+
     <!-- actions -->
-    <!--
-    <menuitem name="List" id="openfactura-integration.menu_1_list" parent="openfactura-integration.menu_1"
+
+    <menuitem name="List" id="openfactura-integration.acteco_list" parent="openfactura-integration.sii"
               action="openfactura-integration.action_window"/>
+    <!--
     <menuitem name="Server to list" id="openfactura-integration" parent="openfactura-integration.menu_2"
               action="openfactura-integration.action_server"/>
     -->
