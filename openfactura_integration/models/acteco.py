@@ -17,7 +17,8 @@ class Acteco(models.Model):
 
     activity = fields.Text(
         'Actividad',
-        required=True
+        required=True,
+        compute='_to_upper'
     )
 
     iva_affect = fields.Selection(
@@ -42,6 +43,11 @@ class Acteco(models.Model):
 
     internet_available = fields.Boolean('Disponible Internet')
 
+    @api.depends('activity')
+    def _to_upper(self):
+        for acteco in self:
+            acteco.activity = str.upper(acteco.activity)
+
 #    @api.model
 #    def create(self, values):
 #        acteco = self.env['acteco'].search([('code', '=', values['code'])])
@@ -49,6 +55,6 @@ class Acteco(models.Model):
 #        if acteco is not None:
 #            raise ValidationError(
 #                'código de acteco ya existe'
-#            )
+#            )VENTA AL POR MENOR EN EMPRESAS DE VENTA A DISTANCIA VÍA INTERNET; COMERCIO ELEC
 
 #        return super(Acteco, self).create()
