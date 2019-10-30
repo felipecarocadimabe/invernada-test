@@ -42,12 +42,10 @@ class Acteco(models.Model):
 
     internet_available = fields.Boolean('Disponible Internet')
 
-    def _to_upper(self, text):
-        return str(text).upper()
-
     @api.model
     def create(self, values):
 
-        values['activity'] = self._to_upper(self, values['activity'])
+        if values['activity'] is not None:
+            values['activity'] = str(values['activity']).upper()
 
         return super(Acteco, self).create()
