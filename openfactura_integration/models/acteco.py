@@ -3,6 +3,8 @@ from odoo import models, fields
 
 class Acteco(models.Model):
 
+    _name = 'acteco'
+
     code = fields.Integer('Código')
 
     activity = fields.Text('Actividad')
