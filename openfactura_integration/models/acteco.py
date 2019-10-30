@@ -5,6 +5,10 @@ from odoo.exceptions import ValidationError
 class Acteco(models.Model):
     _name = 'acteco'
 
+    _sql_constraints = [
+        ('code', 'unique(code)', 'el código ya se encuentra en el listado')
+    ]
+
     code = fields.Char(
         'Código',
         required=True,
@@ -38,13 +42,13 @@ class Acteco(models.Model):
 
     internet_available = fields.Boolean('Disponible Internet')
 
-    @api.model
-    def create(self, values):
-        acteco = self.env['acteco'].search([('code', '=', values['code'])])
+#    @api.model
+#    def create(self, values):
+#        acteco = self.env['acteco'].search([('code', '=', values['code'])])
 
-        if acteco is not None:
-            raise ValidationError(
-                'código de acteco ya existe'
-            )
+#        if acteco is not None:
+#            raise ValidationError(
+#                'código de acteco ya existe'
+#            )
 
-        return super(Acteco, self).create()
+#        return super(Acteco, self).create()
