@@ -1,24 +1,26 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
-    <!--
+
     <record model="ir.ui.view" id="openfactura_integration.list">
-      <field name="name">openfactura_integration list</field>
-      <field name="model">openfactura_integration.openfactura_integration</field>
+      <field name="name">openfactura integration list</field>
+      <field name="model">acteco</field>
       <field name="arch" type="xml">
         <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
+          <field name="code"/>
+          <field name="activity"/>
+          <field name="iva_affect"/>
+          <field name="category"/>
+          <field name="internet_available"/>
         </tree>
       </field>
     </record>
-    -->
+
 
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="openfactura_integration.action_window">
-      <field name="name">openfactura_integration window</field>
+      <field name="name">openfactura integration Acteco</field>
       <field name="res_model">acteco</field>
       <field name="view_mode">tree,form</field>
     </record>
