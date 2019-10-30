@@ -5,9 +5,10 @@ class Acteco(models.Model):
 
     _name = 'acteco'
 
-    code = fields.Integer(
+    code = fields.Char(
         'Código',
-        required=True
+        required=True,
+        unique=True
     )
 
     activity = fields.Text(
