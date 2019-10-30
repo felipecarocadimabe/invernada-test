@@ -1,8 +1,7 @@
-from odoo import models, fields
+from odoo import models, fields, api, exceptions
 
 
 class Acteco(models.Model):
-
     _name = 'acteco'
 
     code = fields.Char(
@@ -37,3 +36,15 @@ class Acteco(models.Model):
     )
 
     internet_available = fields.Boolean('Disponible Internet')
+
+    @api.model
+    def create(self, values):
+        acteco = self.env['acteco'].search([('code', '=', values['code'])])
+
+        if acteco is not None:
+            raise ValueError(
+                'código de acteco ya existe'
+                'code'
+            )
+
+        return super(Acteco, self).create()
