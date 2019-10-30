@@ -1,5 +1,4 @@
 from odoo import models, fields, api
-from odoo.exceptions import ValidationError
 
 
 class Acteco(models.Model):
@@ -43,19 +42,12 @@ class Acteco(models.Model):
 
     internet_available = fields.Boolean('Disponible Internet')
 
-    @api.one
-    @api.onchange('activity')
-    def _to_upper(self):
-        act = str(self.activity)
-        self.activity = act.upper()
+    def _to_upper(self, text):
+        return str(text).upper()
 
-#    @api.model
-#    def create(self, values):
-#        acteco = self.env['acteco'].search([('code', '=', values['code'])])
+    @api.model
+    def create(self, values):
 
-#        if acteco is not None:
-#            raise ValidationError(
-#                'código de acteco ya existe'
-#            )VENTA AL POR MENOR EN EMPRESAS DE VENTA A DISTANCIA VÍA INTERNET; COMERCIO ELEC
+        values['activity'] = self._to_upper(values['activity'])
 
-#        return super(Acteco, self).create()
+        return super(Acteco, self).create()
