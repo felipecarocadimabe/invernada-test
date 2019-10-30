@@ -47,12 +47,14 @@
     <!-- menu categories -->
     <!--
     <menuitem name="Menu 1" id="openfactura_integration.menu_1" parent="openfactura_integration.menu_root"/>
-    <menuitem name="Menu 2" id="openfactura_integration.menu_2" parent="openfactura_integration.menu_root"/>
+
     -->
     <!-- actions -->
-
-    <menuitem name="List" id="openfactura_integration.menu_action_window"
-              parent="account.menu_finance_entries"
+  <menuitem name="Sii"
+            id="openfactura_integration.menu_sii"
+            parent="account.menu_finance_entries"/>
+    <menuitem name="Acteco" id="openfactura_integration.menu_action_window"
+              parent="openfactura_integration.menu_sii"
               action="openfactura_integration.action_window"
     />
 

@@ -5,9 +5,15 @@ class Acteco(models.Model):
 
     _name = 'acteco'
 
-    code = fields.Integer('Código')
+    code = fields.Integer(
+        'Código',
+        required=True
+    )
 
-    activity = fields.Text('Actividad')
+    activity = fields.Text(
+        'Actividad',
+        required=True
+    )
 
     iva_affect = fields.Selection(
         [
@@ -15,7 +21,8 @@ class Acteco(models.Model):
             ('no', 'NO'),
             ('g', 'G'),
         ],
-        'Afecto a IVA'
+        'Afecto a IVA',
+        required=True
     )
 
     category = fields.Selection(
@@ -24,7 +31,8 @@ class Acteco(models.Model):
             ('2', '2'),
             ('g', 'G'),
         ],
-        'Categoría'
+        'Categoría',
+        required=True
     )
 
     internet_available = fields.Boolean('Disponible Internet')
