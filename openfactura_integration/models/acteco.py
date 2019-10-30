@@ -47,4 +47,4 @@ class Acteco(models.Model):
         if values['activity'] is not None:
             values['activity'] = str(values['activity']).upper()
 
-        return super(Acteco, self).create()
+        return super(Acteco, self).create(values)
