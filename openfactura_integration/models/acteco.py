@@ -51,8 +51,8 @@ class Acteco(models.Model):
 
     @api.multi
     def write(self, values):
-        for item in values:
-            if item['activity'] is not None:
-                item['activity'] = str(item['activity']).upper()
+
+        if values['activity'] is not None:
+            values['activity'] = str(values['activity']).upper()
 
         return super(Acteco, self).write(values)
