@@ -48,6 +48,6 @@ class Acteco(models.Model):
     @api.model
     def create(self, values):
 
-        values['activity'] = self._to_upper(values['activity'])
+        values['activity'] = self._to_upper(self, values['activity'])
 
         return super(Acteco, self).create()
