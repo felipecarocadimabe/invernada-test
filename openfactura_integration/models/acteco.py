@@ -45,8 +45,7 @@ class Acteco(models.Model):
 
     @api.depends('activity')
     def _to_upper(self):
-        for acteco in self:
-            acteco.activity = str.upper(acteco.activity)
+        self.activity = str.upper(self.activity)
 
 #    @api.model
 #    def create(self, values):
