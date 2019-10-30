@@ -45,8 +45,9 @@ class Acteco(models.Model):
 
     @api.onchange('activity')
     def _to_upper(self):
-        act = str(self.activity)
-        self.activity = act.upper()
+        for item in self:
+            act = str(item.activity)
+            item.activity = act.upper()
 
 #    @api.model
 #    def create(self, values):
