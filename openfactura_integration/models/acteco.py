@@ -16,8 +16,7 @@ class Acteco(models.Model):
 
     activity = fields.Text(
         'Actividad',
-        required=True,
-        compute='_to_upper'
+        required=True
     )
 
     iva_affect = fields.Selection(
