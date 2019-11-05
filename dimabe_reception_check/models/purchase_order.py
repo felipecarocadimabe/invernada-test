@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 
 
 class PurchaseOrder(models.Model):
@@ -20,6 +21,17 @@ class PurchaseOrder(models.Model):
         readonly=True
     )
 
+    has_service = fields.Boolean(
+        'Tiene Servicio',
+        compute='_has_service_line'
+    )
+
+    @api.model
+    def _has_service_line(self):
+        for line in self.order_line:
+            if line.product_id.type == 'service':
+                self.has_service = True
+
     @api.multi
     def send_hes(self):
         template_id = self.env.ref('dimabe_reception_check.hes_mail_template')
@@ -30,7 +42,7 @@ class PurchaseOrder(models.Model):
     def generate_hes(self):
         self.ensure_one()
 
-        if self.hes_number is None:
+        if self.hes_number is None or self.hes_number == 0:
             self.hes_number = self.env['purchase.order'].search([])[-1].hes_number + 1
 
         return self
@@ -40,3 +52,15 @@ class PurchaseOrder(models.Model):
         self.ensure_one()
         self.hes_sent_count = self.hes_sent_count + 1
         return self
+
+    @api.multi
+    def button_confirm(self):
+
+        for order in self:
+            if order.has_service:
+                if order.hes_number == 0:
+                    raise ValidationError('debe confirmar validar que recibió el servicio')
+                if order.hes_sent_count == 0:
+                    raise ValidationError('no ha enviado el número hes al proveedor')
+
+        return super(PurchaseOrder, self).button_confirm()
