@@ -40,4 +40,3 @@ class PurchaseOrder(models.Model):
         self.ensure_one()
         self.hes_sent_count = self.hes_sent_count + 1
         return self
-
