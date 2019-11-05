@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="hes_mail_template" model="mail.template">
+        <field name="name">Hes Email Template</field>
+        <field name="model_id" ref="reception_check.model_purchase_order"/>
+        <field name="email_from">felipe.caroca@dimabe.cl</field>
+        <field name="email_to">felipe.caroca@dimabe.cl</field>
+        <field name="subject">Hes de Presupuesto ${object.name}</field>
+        <field name="body_html">
+            <![CDATA[
+                <p>Dear ${(object.partner_id.name)},<br/><br/>
+                Good job, you've just created your first e-mail template!<br/></p>
+                Regards,<br/>
+                ${(object.company_id.name)}
+            ]]>
+        </field>
+    </record>
+</odoo>

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "openfactura integration",
+    'name': "Revisión de Recepción",
 
     'summary': """
-        Integración con API de Openfactura
+        check list para recepciones de productos y hes para servicios
         """,
 
     'description': """
@@ -17,19 +17,24 @@
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Uncategorized',
-    'version': '0.1',
+    'version': '0.3',
 
     # any module necessary for this one to work correctly
     'depends': [
         'base',
-        'account'
+        'stock',
+        'purchase',
+        'mail'
     ],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
-        'views/acteco.xml',
-        'views/templates.xml',
+        'views/stock_picking.xml',
+        'views/check_list_item.xml',
+        'views/check_list_response.xml',
+        'views/purchase_order.xml',
+        'data/send_hes_mail_template.xml'
     ],
     # only loaded in demonstration mode
     'demo': [
