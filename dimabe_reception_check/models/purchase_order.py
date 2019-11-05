@@ -22,7 +22,7 @@ class PurchaseOrder(models.Model):
 
     @api.multi
     def send_hes(self):
-        template_id = self.env.ref('reception_check.hes_mail_template')
+        template_id = self.env.ref('dimabe_reception_check.hes_mail_template')
         self.message_post_with_template(template_id.id)
         self.sum_send_hes()
 
