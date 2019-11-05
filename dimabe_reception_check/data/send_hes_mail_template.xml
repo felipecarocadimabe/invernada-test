@@ -8,9 +8,12 @@
         <field name="subject">Hes de Presupuesto ${object.name}</field>
         <field name="body_html">
             <![CDATA[
-                <p>Dear ${(object.partner_id.name)},<br/><br/>
-                Good job, you've just created your first e-mail template!<br/></p>
-                Regards,<br/>
+                <p>Estimado ${(object.partner_id.name)},<br/><br/>
+                se informa a usted que el número HES correspondiente a la PO ${object.name} es:
+                <strong>${object.hes_number}</strong>
+                <br/>
+                </p>
+                Atte,<br/>
                 ${(object.company_id.name)}
             ]]>
         </field>
