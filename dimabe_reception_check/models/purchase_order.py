@@ -43,7 +43,10 @@ class PurchaseOrder(models.Model):
         self.ensure_one()
 
         if self.hes_number is None or self.hes_number == 0:
-            self.hes_number = self.env['purchase.order'].search([])[-1].hes_number + 1
+            self._cr.execute('SELECT MAX(hes_number) FROM purchase_order;')
+            data = self._cr.fetchall()
+            if len(data) == 1 and len(data[0]) == 1 and type(data[0][0]) is int:
+                self.hes_number = data[0][0] + 1
 
         return self
 
@@ -59,7 +62,7 @@ class PurchaseOrder(models.Model):
         for order in self:
             if order.has_service:
                 if order.hes_number == 0:
-                    raise ValidationError('debe confirmar validar que recibió el servicio')
+                    raise ValidationError('debe validar que recibió el servicio')
                 if order.hes_sent_count == 0:
                     raise ValidationError('no ha enviado el número hes al proveedor')
 
