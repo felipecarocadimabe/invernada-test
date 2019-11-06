@@ -57,7 +57,7 @@ class PurchaseOrder(models.Model):
         return self
 
     @api.multi
-    def button_confirm(self):
+    def action_view_invoice(self):
 
         for order in self:
             if order.has_service:
@@ -66,4 +66,4 @@ class PurchaseOrder(models.Model):
                 if order.hes_sent_count == 0:
                     raise ValidationError('no ha enviado el número hes al proveedor')
 
-        return super(PurchaseOrder, self).button_confirm()
+        return super(PurchaseOrder, self).action_view_invoice()

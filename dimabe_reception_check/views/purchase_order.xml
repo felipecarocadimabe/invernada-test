@@ -33,7 +33,7 @@
                             string="Validar"
                             name="generate_hes"
                             class="oe_highlight"
-                            attrs="{'invisible':['|',('has_service','==',False),('hes_number','>',0)]}"
+                            attrs="{'invisible':['|',('has_service','==',False),('hes_number','>',0), ('state', '!=', 'purchase')]}"
                     />
                 </xpath>
             </field>
