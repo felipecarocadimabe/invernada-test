@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="action_dte_type_view" model="ir.actions.act_window">
+            <field name="name">Mestro tipos de dte</field>
+            <field name="res_model">dte.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_dte_type"
+                  parent="openfactura_integration.menu_sii"
+                  action="action_dte_type_view"
+        />
+    </data>
+</odoo>

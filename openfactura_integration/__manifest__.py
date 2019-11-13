@@ -31,6 +31,7 @@
         'views/acteco.xml',
         'views/res_partner.xml',
         'views/res_company.xml',
+        'views/dte_type.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode
