@@ -1,5 +1,5 @@
 from odoo import models, fields, api
-import re
+import json
 
 
 class ResPartner(models.Model):
@@ -20,7 +20,7 @@ class ResPartner(models.Model):
 
     @api.model
     def get_emitter_data(self):
-        return {
+        data = {
             'RUTEmisor': self.invoice_rut,
             'RznSoc': self.name,
             'GiroEmis': self.acteco_id.activity,
@@ -32,9 +32,11 @@ class ResPartner(models.Model):
 
         }
 
+        return json.dumps(data)
+
     @api.model
     def get_receiver_data(self):
-        return {
+        data = {
             'RUTRecep': self.invoice_rut,
             'RznSocRecep': self.name,
             'GiroRecep': self.acteco_id.activity,
@@ -42,3 +44,4 @@ class ResPartner(models.Model):
             'CmnaRecep': self.city
 
         }
+        return json.dumps(data)

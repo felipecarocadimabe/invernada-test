@@ -46,7 +46,7 @@ class AccountInvoice(models.Model):
                 'PrcItem': line.price_unit,
                 'MontoItem': line.price_subtotal
             })
-        return lines
+        return json.dumps(lines)
 
     def action_invoice_open(self):
 
