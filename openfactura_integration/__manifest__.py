@@ -33,6 +33,7 @@
         'views/res_company.xml',
         'views/dte_type.xml',
         'views/dte_payment_mode.xml',
+        'views/account_invoice.xml',
         'views/templates.xml',
     ],
     # only loaded in demonstration mode
