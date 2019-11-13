@@ -16,9 +16,39 @@ class AccountInvoice(models.Model):
         'Forma de Pago',
         required=True
     )
+    #{
+    #    "RUTEmisor": self.company_id.partner_id.invoice_rut,
+    #    "RznSoc": self.company_id.partner_id.name,
+    #    "GiroEmis": self.company_id.partner_id.acteco_id.activity,
+    #    "Acteco": self.company_id.partner_id.acteco_id.code,
+    #    "DirOrigen": self.company_id.partner_id.street,
+    #    "CmnaOrigen": self.company_id.partner_id.city,
+    #    "Telefono": self.company_id.partner_id.phone,
+    #    "CdgSIISucur": self.company_id.partner_id.branch_office_sii_code
+    #}
+    #{
+    #    "RUTRecep": self.partner_id.invoice_rut,
+    #    "RznSocRecep": self.partner_id.name,
+    #    "GiroRecep": self.partner_id.acteco_id.activity,
+    #    "DirRecep": self.partner_id.street,
+    #    "CmnaRecep": self.partner_id.city
+    #}
+
+    @api.model
+    def get_detail_data(self):
+        lines = []
+        for line in self.invoice_line_ids:
+            lines.append({
+                "NroLinDet": line.sequence,
+                "NmbItem": line.name,
+                "QtyItem": line.quantity,
+                "PrcItem": line.price_unit,
+                "MontoItem": line.price_subtotal
+            })
+        return lines
 
     def action_invoice_open(self):
-        raise models.ValidationError(self.company_id.partner_id.invoice_rut)
+
         data = {
             'response': [
                 'PDF', 'FOLIO'
@@ -34,44 +64,29 @@ class AccountInvoice(models.Model):
                         "FmaPago": self.dte_payment_mode_id.code
 
                     },
-                    "Emisor": {
-                        "RUTEmisor": self.partner_id.invoice_rut,
-                        "RznSoc": "HAULMER SPA",
-                        "GiroEmis": "VENTA AL POR MENOR POR CORREO, POR INTERNET Y VIA TELEFONICA",
-                        "Acteco": "479100",
-                        "DirOrigen": "ARTURO PRAT 527   CURICO",
-                        "CmnaOrigen": "Curicó",
-                        "Telefono": "0 0",
-                        "CdgSIISucur": "81303347"
-
-                    },
-                    "Receptor": {
-                        "RUTRecep": "76430498-5",
-                        "RznSocRecep": "HOSTY SPA",
-                        "GiroRecep": "ACTIVIDADES DE CONSULTORIA DE INFORMATIC",
-                        "DirRecep": "ARTURO PRAT 527 3 pis OF 1",
-                        "CmnaRecep": "Curicó"
-
-                    },
+                    "Emisor": self.company_id.partner_id.get_emitter_data(),
+                    "Receptor": self.partner_id.get_receiver_data(),
                     "Totales": {
-                        "MntNeto": 2000,
+                        "MntNeto": self.amount_untaxed,
                         "TasaIVA": "19",
-                        "IVA": 380,
-                        "MntTotal": 2380,
-                        "MontoPeriodo": 2380,
-                        "VlrPagar": 2380
+                        "IVA": self.amount_tax,
+                        "MntTotal": self.amount_total,
+                        "MontoPeriodo": self.amount_total,
+                        "VlrPagar": self.amount_total
                     }
                 },
-                "Detalle": [
-                    {
-                        "NroLinDet": 1,
-                        "NmbItem": "item",
-                        "QtyItem": 1,
-                        "PrcItem": 2000,
-                        "MontoItem": 2000
-
-                    }
-                ]
+                "Detalle": self.get_detail_data
             }
         }
+        res = requests.request(
+            'POST',
+            'https://dev-api.haulmer.com/v2/dte/document',
+            headers={
+                'apikey': self.company_id.api_key
+            },
+            data=data
+        )
+
+        raise models.ValidationError(res)
+
         return super(AccountInvoice, self).action_invoice_open()
