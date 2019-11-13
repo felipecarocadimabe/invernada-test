@@ -32,11 +32,9 @@ class ResPartner(models.Model):
 
         }
 
-
-
     @api.model
     def get_receiver_data(self):
-        data = {
+        return {
             'RUTRecep': self.invoice_rut,
             'RznSocRecep': self.name,
             'GiroRecep': self.acteco_id.activity,
@@ -44,4 +42,4 @@ class ResPartner(models.Model):
             'CmnaRecep': self.city
 
         }
-        return json.dumps(data)
+

@@ -46,12 +46,10 @@ class AccountInvoice(models.Model):
                 'PrcItem': line.price_unit,
                 'MontoItem': line.price_subtotal
             })
-        return json.dumps(lines)
+        return lines
 
     def action_invoice_open(self):
 
-        receiver = self.partner_id.get_receiver_data()
-        detail = self.get_detail_data()
         data = {
             'response': [
                 'PDF', 'FOLIO'
@@ -68,7 +66,7 @@ class AccountInvoice(models.Model):
 
                     },
                     'Emisor': self.company_id.partner_id.get_emitter_data(),
-                    'Receptor': receiver,
+                    'Receptor': self.partner_id.get_receiver_data(),
                     'Totales': {
                         'MntNeto': self.amount_untaxed,
                         'TasaIVA': "19",
@@ -78,11 +76,10 @@ class AccountInvoice(models.Model):
                         'VlrPagar': self.amount_total
                     }
                 },
-                'Detalle': detail
+                'Detalle': self.get_detail_data()
             }
         }
 
-        raise models.ValidationError(json.dumps(data))
         res = requests.request(
             'POST',
             'https://dev-api.haulmer.com/v2/dte/document',
