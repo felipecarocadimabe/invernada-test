@@ -13,7 +13,7 @@ class DTEType(models.Model):
         store=True
     )
 
-    code = fields.Char(
+    code = fields.Integer(
         'Código',
         required=True
     )
@@ -28,6 +28,6 @@ class DTEType(models.Model):
     def _get_name(self):
         for item in self:
             if item.dte_type and item.code:
-                item.name = '{} {}'.format(item.code, item.dte_type)
+                item.name = '{} {}'.format(str(item.code), item.dte_type)
             else:
                 item.name = ''
