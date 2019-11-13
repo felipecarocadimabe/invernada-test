@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_openfactura_integration_acteco,openfactura_integration.acteco,model_acteco,,1,1,1,1
 access_openfactura_integration_dte_type,openfactura_integration.dte_type,model_dte_type,,1,1,1,1
+access_openfactura_integration_dte_payment_mode,openfactura_integration.dte_payment_mode,model_dte_payment_mode,,1,1,1,1

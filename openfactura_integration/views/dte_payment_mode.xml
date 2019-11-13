@@ -1,0 +1,42 @@
+<odoo>
+    <data>
+         <record id="action_dte_payment_mode_view" model="ir.actions.act_window">
+            <field name="name">Maestro Formas de Pago DTE</field>
+            <field name="res_model">dte.payment.mode</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="dte_payment_mode_tree_view" model="ir.ui.view">
+            <field name="name">listado formas de pago de DTE</field>
+            <field name="model">dte.payment.mode</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code" />
+                    <field name="mode" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="dte_payment_mode_form_view" model="ir.ui.view">
+            <field name="name">Formulario de formas de pago de DTE</field>
+            <field name="model">dte.payment.mode</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                        </group>
+                        <group>
+                            <field name="mode"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <menuitem id="menu_dte_payment_mode"
+                  parent="openfactura_integration.menu_sii"
+                  action="action_dte_payment_mode_view"
+        />
+    </data>
+</odoo>
