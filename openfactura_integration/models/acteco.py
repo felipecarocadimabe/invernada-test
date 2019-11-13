@@ -63,6 +63,8 @@ class Acteco(models.Model):
 
         return super(Acteco, self).write(values)
 
+    @api.multi
     @api.depends('code', 'activity')
     def _get_name(self):
-        self.name = '{} - {}'.format(self.code, self.activity)
+        for item in self:
+            item.name = '{} - {}'.format(item.code, item.activity)
