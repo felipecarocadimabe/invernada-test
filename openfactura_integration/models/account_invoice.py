@@ -39,11 +39,11 @@ class AccountInvoice(models.Model):
         lines = []
         for line in self.invoice_line_ids:
             lines.append({
-                "NroLinDet": line.sequence,
-                "NmbItem": line.name,
-                "QtyItem": line.quantity,
-                "PrcItem": line.price_unit,
-                "MontoItem": line.price_subtotal
+                'NroLinDet': line.sequence,
+                'NmbItem': line.name,
+                'QtyItem': line.quantity,
+                'PrcItem': line.price_unit,
+                'MontoItem': line.price_subtotal
             })
         return lines
 
@@ -53,32 +53,32 @@ class AccountInvoice(models.Model):
             'response': [
                 'PDF', 'FOLIO'
             ],
-            "dte": {
-                "Encabezado": {
-                    "IdDoc": {
-                        "TipoDTE": self.dte_type_id.code,
-                        "Folio": 0,
-                        "FchEmis": self.date_invoice,
-                        "TpoTranCompra": "1",
-                        "TpoTranVenta": "1",
-                        "FmaPago": self.dte_payment_mode_id.code
+            'dte': {
+                'Encabezado': {
+                    'IdDoc': {
+                        'TipoDTE': self.dte_type_id.code,
+                        'Folio': 0,
+                        'FchEmis': self.date_invoice,
+                        'TpoTranCompra': "1",
+                        'TpoTranVenta': "1",
+                        'FmaPago': self.dte_payment_mode_id.code
 
                     },
-                    "Emisor": self.company_id.partner_id.get_emitter_data(),
-                    "Receptor": self.partner_id.get_receiver_data(),
-                    "Totales": {
-                        "MntNeto": self.amount_untaxed,
-                        "TasaIVA": "19",
-                        "IVA": self.amount_tax,
-                        "MntTotal": self.amount_total,
-                        "MontoPeriodo": self.amount_total,
-                        "VlrPagar": self.amount_total
+                    'Emisor': self.company_id.partner_id.get_emitter_data(),
+                    'Receptor': self.partner_id.get_receiver_data(),
+                    'Totales': {
+                        'MntNeto': self.amount_untaxed,
+                        'TasaIVA': "19",
+                        'IVA': self.amount_tax,
+                        'MntTotal': self.amount_total,
+                        'MontoPeriodo': self.amount_total,
+                        'VlrPagar': self.amount_total
                     }
                 },
-                "Detalle": self.get_detail_data
+                'Detalle': self.get_detail_data
             }
         }
-        raise models.ValidationError(data)
+
         res = requests.request(
             'POST',
             'https://dev-api.haulmer.com/v2/dte/document',
