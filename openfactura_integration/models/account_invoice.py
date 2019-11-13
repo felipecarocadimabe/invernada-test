@@ -78,7 +78,7 @@ class AccountInvoice(models.Model):
                 'Detalle': self.get_detail_data
             }
         }
-
+        raise models.ValidationError(data['dte'])
         res = requests.request(
             'POST',
             'https://dev-api.haulmer.com/v2/dte/document',
