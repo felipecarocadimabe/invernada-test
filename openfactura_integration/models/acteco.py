@@ -8,6 +8,12 @@ class Acteco(models.Model):
         ('code', 'unique(code)', 'el código ya se encuentra en el listado')
     ]
 
+    name = fields.Char(
+        'acteco',
+        compute='_get_name',
+        store=True
+    )
+
     code = fields.Char(
         'Código',
         required=True,
@@ -56,3 +62,7 @@ class Acteco(models.Model):
             values['activity'] = str(values['activity']).upper()
 
         return super(Acteco, self).write(values)
+
+    @api.depends('code', 'activity')
+    def _get_name(self):
+        self.name = '{} - {}'.format(self.code, self.activity)
