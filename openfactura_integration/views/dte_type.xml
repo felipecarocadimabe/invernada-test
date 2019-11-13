@@ -21,8 +21,8 @@
             <field name="name">Formulario de tipo de DTE</field>
             <field name="model">dte.type</field>
             <field name="arch" type="xml">
-                <group id="principal_group_dte_type_view">
-                    <group  name="principal_group_dte_type_view" position="inside">
+                <form>
+                    <group>
                         <group>
                             <field name="code"/>
                         </group>
@@ -30,7 +30,7 @@
                             <field name="dte_type"/>
                         </group>
                     </group>
-                </group>
+                </form>
             </field>
         </record>
 
