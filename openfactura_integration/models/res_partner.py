@@ -20,7 +20,7 @@ class ResPartner(models.Model):
 
     @api.model
     def get_emitter_data(self):
-        data = {
+        return {
             'RUTEmisor': self.invoice_rut,
             'RznSoc': self.name,
             'GiroEmis': self.acteco_id.activity,
@@ -32,7 +32,7 @@ class ResPartner(models.Model):
 
         }
 
-        return json.dumps(data)
+
 
     @api.model
     def get_receiver_data(self):
