@@ -1,9 +1,35 @@
 <odoo>
     <data>
         <record id="action_dte_type_view" model="ir.actions.act_window">
-            <field name="name">Maestro tipos de dte</field>
+            <field name="name">Maestro tipos de DTE</field>
             <field name="res_model">dte.type</field>
             <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="dte_type_tree_view" model="ir.ui.view">
+            <field name="name">listado tipos de DTE</field>
+            <field name="model">dte.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="code" />
+                    <field name="dte_type" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="dte_type_form_view" model="ir.ui.view">
+            <field name="name">Formulario de tipo de DTE</field>
+            <field name="model">dte.type</field>
+            <field name="arch" type="xml">
+                <group>
+                    <group>
+                        <field name="code" />
+                    </group>
+                    <group>
+                        <field name="dte_type" />
+                    </group>
+                </group>
+            </field>
         </record>
 
         <menuitem id="menu_dte_type"
