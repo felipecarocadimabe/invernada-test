@@ -5,9 +5,10 @@ class DTEType(models.Model):
     _name = 'dte.type'
 
     name = fields.Char(
-        'tipo',
+        'Tipo',
         compute='_get_name',
-        store=True
+        store=True,
+        invisible=True
     )
 
     code = fields.Char('Código')
