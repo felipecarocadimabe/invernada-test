@@ -18,7 +18,7 @@ class AccountInvoice(models.Model):
     )
 
     def action_invoice_open(self):
-        raise models.ValidationError(self.partner_id.invoice_rut)
+        raise models.ValidationError(self.company_id.partner_id.invoice_rut)
         data = {
             'response': [
                 'PDF', 'FOLIO'
