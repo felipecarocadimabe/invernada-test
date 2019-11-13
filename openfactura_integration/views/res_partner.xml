@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">Formulario de contacto</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='sales_purchases']" position="after">
+                    <page id="page_invoice_data" string="Datos de Facturación">
+                        <group name="page_invoice_data" position="inside">
+                            <field name="invoice_rut" />
+                            <field name="acteco_id" />
+                            <field name="branch_office_sii_code" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
