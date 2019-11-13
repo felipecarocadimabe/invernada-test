@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <recodr id="account.invoice.form_inherit" model="ir.ui.view">
+        <record id="account.invoice.form_inherit" model="ir.ui.view">
             <field name="name">formulario de factura</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form" />
@@ -10,6 +10,6 @@
                     <field name="dte_payment_mode_id" />
                 </field>
             </field>
-        </recodr>
+        </record>
     </data>
 </odoo>
