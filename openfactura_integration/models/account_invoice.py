@@ -87,6 +87,6 @@ class AccountInvoice(models.Model):
             data=data
         )
 
-        raise models.ValidationError(res)
+        raise models.ValidationError(res['message'])
 
         return super(AccountInvoice, self).action_invoice_open()
