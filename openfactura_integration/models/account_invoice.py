@@ -83,6 +83,7 @@ class AccountInvoice(models.Model):
             }
         }
 
+        raise models.ValidationError(data)
         res = requests.request(
             'POST',
             'https://dev-api.haulmer.com/v2/dte/document',
