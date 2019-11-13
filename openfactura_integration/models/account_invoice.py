@@ -1,5 +1,6 @@
 from odoo import models, fields, api
 import requests
+import json
 
 
 class AccountInvoice(models.Model):
@@ -78,14 +79,14 @@ class AccountInvoice(models.Model):
                 'Detalle': self.get_detail_data
             }
         }
-        raise models.ValidationError(data['dte'])
+        raise models.ValidationError(json.dumps(data))
         res = requests.request(
             'POST',
             'https://dev-api.haulmer.com/v2/dte/document',
             headers={
                 'apikey': self.company_id.api_key
             },
-            data=data
+            data=json.dumps(data)
         )
 
         raise models.ValidationError(res.text)
