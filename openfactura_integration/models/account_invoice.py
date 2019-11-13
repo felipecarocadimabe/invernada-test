@@ -50,6 +50,9 @@ class AccountInvoice(models.Model):
 
     def action_invoice_open(self):
 
+        emitter = self.company_id.partner_id.get_emitter_data()
+        receiver = self.partner_id.get_receiver_data()
+        detail = self.get_detail_data()
         data = {
             'response': [
                 'PDF', 'FOLIO'
@@ -65,8 +68,8 @@ class AccountInvoice(models.Model):
                         'FmaPago': self.dte_payment_mode_id.code
 
                     },
-                    'Emisor': self.company_id.partner_id.get_emitter_data(),
-                    'Receptor': self.partner_id.get_receiver_data(),
+                    'Emisor': emitter,
+                    'Receptor': receiver,
                     'Totales': {
                         'MntNeto': self.amount_untaxed,
                         'TasaIVA': "19",
@@ -76,7 +79,7 @@ class AccountInvoice(models.Model):
                         'VlrPagar': self.amount_total
                     }
                 },
-                'Detalle': self.get_detail_data
+                'Detalle': detail
             }
         }
         raise models.ValidationError(json.dumps(data))
