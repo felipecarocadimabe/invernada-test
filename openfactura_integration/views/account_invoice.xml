@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <record id="account.invoice.form_inherit" model="ir.ui.view">
+        <record id="account_invoice_form_inherit" model="ir.ui.view">
             <field name="name">formulario de factura</field>
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_form" />
