@@ -50,7 +50,6 @@ class AccountInvoice(models.Model):
 
     def action_invoice_open(self):
 
-        emitter = self.company_id.partner_id.get_emitter_data()
         receiver = self.partner_id.get_receiver_data()
         detail = self.get_detail_data()
         data = {
@@ -68,7 +67,7 @@ class AccountInvoice(models.Model):
                         'FmaPago': self.dte_payment_mode_id.code
 
                     },
-                    'Emisor': emitter,
+                    'Emisor': self.company_id.partner_id.get_emitter_data(),
                     'Receptor': receiver,
                     'Totales': {
                         'MntNeto': self.amount_untaxed,
