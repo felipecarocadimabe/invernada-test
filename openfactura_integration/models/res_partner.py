@@ -37,7 +37,7 @@ class ResPartner(models.Model):
         return {
             'RUTRecep': self.invoice_rut,
             'RznSocRecep': self.name,
-            'GiroRecep': self.acteco_id.activity,
+            'GiroRecep': 'ACTIVIDADES DE CONSULTORIA DE INFORMATIC',  # self.acteco_id.activity,
             'DirRecep': self.street,
             'CmnaRecep': self.city
 
