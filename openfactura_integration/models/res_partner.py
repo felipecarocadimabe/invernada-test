@@ -34,10 +34,13 @@ class ResPartner(models.Model):
 
     @api.model
     def get_receiver_data(self):
+        substring = self.acteco_id.activity
+        if len(substring) > 40:
+            substring = self.acteco_id.activity[0:35]
         return {
             'RUTRecep': self.invoice_rut,
             'RznSocRecep': self.name,
-            'GiroRecep': 'ACTIVIDADES DE CONSULTORIA DE INFORMATIC',  # self.acteco_id.activity,
+            'GiroRecep': substring,
             'DirRecep': self.street,
             'CmnaRecep': self.city
 
