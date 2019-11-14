@@ -1,0 +1,4 @@
+[submodule "OCA/l10n-chile"]
+	path = OCA/l10n-chile
+	url = git@github.com:OCA/l10n-chile.git
+	branch = 12.0
