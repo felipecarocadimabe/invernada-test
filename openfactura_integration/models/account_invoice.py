@@ -22,6 +22,10 @@ class AccountInvoice(models.Model):
         'Documento PDF'
     )
 
+    dte_folio = fields.Integer(
+        'Folio'
+    )
+
     @api.model
     def get_detail_data(self):
         lines = []
@@ -82,5 +86,6 @@ class AccountInvoice(models.Model):
             raise models.ValidationError(response['details'])
 
         self.dte_base64_data = 'data:application/pdf;base64,{}'.format(response['PDF'])
+        self.dte_folio = response['FOLIO']
 
         return super(AccountInvoice, self).action_invoice_open()
