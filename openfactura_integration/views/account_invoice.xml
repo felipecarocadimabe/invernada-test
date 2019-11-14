@@ -9,6 +9,7 @@
                     <field name="dte_type_id" />
                     <field name="dte_payment_mode_id" />
                     <field name="dte_base64_data" widget="url" text_field="dte_folio"/>
+                    <field name="dte_folio" />
                 </field>
             </field>
         </record>
