@@ -17,11 +17,13 @@ class AccountInvoice(models.Model):
     )
 
     dte_base64_data = fields.Text(
-        'Documento PDF'
+        'Documento PDF',
+        readonly=True
     )
 
     dte_folio = fields.Integer(
-        'Folio'
+        'Folio',
+        readonly=True
     )
 
     @api.model
