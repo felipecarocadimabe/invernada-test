@@ -17,23 +17,10 @@ class AccountInvoice(models.Model):
         'Forma de Pago',
         required=True
     )
-    #{
-    #    "RUTEmisor": self.company_id.partner_id.invoice_rut,
-    #    "RznSoc": self.company_id.partner_id.name,
-    #    "GiroEmis": self.company_id.partner_id.acteco_id.activity,
-    #    "Acteco": self.company_id.partner_id.acteco_id.code,
-    #    "DirOrigen": self.company_id.partner_id.street,
-    #    "CmnaOrigen": self.company_id.partner_id.city,
-    #    "Telefono": self.company_id.partner_id.phone,
-    #    "CdgSIISucur": self.company_id.partner_id.branch_office_sii_code
-    #}
-    #{
-    #    "RUTRecep": self.partner_id.invoice_rut,
-    #    "RznSocRecep": self.partner_id.name,
-    #    "GiroRecep": self.partner_id.acteco_id.activity,
-    #    "DirRecep": self.partner_id.street,
-    #    "CmnaRecep": self.partner_id.city
-    #}
+
+    dte_base64_data = fields.Text(
+        'Documento PDF'
+    )
 
     @api.model
     def get_detail_data(self):
@@ -80,8 +67,6 @@ class AccountInvoice(models.Model):
             }
         }
 
-        # raise models.ValidationError(json.dumps(data))
-
         res = requests.request(
             'POST',
             'https://dev-api.haulmer.com/v2/dte/document',
@@ -92,6 +77,8 @@ class AccountInvoice(models.Model):
         )
 
         #if res.status_code != 200:
-        raise models.ValidationError(res.text)
+        raise models.ValidationError(type(res.text))
+
+        self.dte_base64_data = 'data:application/pdf;base64,{}'.format()
 
         return super(AccountInvoice, self).action_invoice_open()
