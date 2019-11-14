@@ -76,9 +76,10 @@ class AccountInvoice(models.Model):
             data=json.dumps(data)
         )
 
-        #if res.status_code != 200:
         response = json.loads(res.text)
-        raise models.ValidationError(response['PDF'])
+
+        if res.status_code != 200:
+            raise models.ValidationError(response['details'])
 
         self.dte_base64_data = 'data:application/pdf;base64,{}'.format(response['PDF'])
 
