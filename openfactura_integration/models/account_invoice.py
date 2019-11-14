@@ -80,7 +80,7 @@ class AccountInvoice(models.Model):
             }
         }
 
-        raise models.ValidationError(self.date_invoice)
+        raise models.ValidationError(str(self.date_invoice))
 
         res = requests.request(
             'POST',
