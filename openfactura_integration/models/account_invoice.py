@@ -80,8 +80,6 @@ class AccountInvoice(models.Model):
             }
         }
 
-        raise models.ValidationError(json.dumps(data))
-
         res = requests.request(
             'POST',
             'https://dev-api.haulmer.com/v2/dte/document',
@@ -91,6 +89,7 @@ class AccountInvoice(models.Model):
             data=json.dumps(data)
         )
 
-        raise models.ValidationError(res.text)
+        if res.status_code != 200:
+            raise models.ValidationError(res.text)
 
         return super(AccountInvoice, self).action_invoice_open()
