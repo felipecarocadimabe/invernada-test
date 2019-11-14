@@ -80,7 +80,7 @@ class AccountInvoice(models.Model):
             }
         }
 
-        raise models.ValidationError(json.dumps(data))
+        # raise models.ValidationError(json.dumps(data))
 
         res = requests.request(
             'POST',
