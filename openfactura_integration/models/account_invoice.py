@@ -8,14 +8,12 @@ class AccountInvoice(models.Model):
 
     dte_type_id = fields.Many2one(
         'dte.type',
-        'Tipo de Factura',
-        required=True
+        'Tipo de Factura'
     )
 
     dte_payment_mode_id = fields.Many2one(
         'dte.payment.mode',
-        'Forma de Pago',
-        required=True
+        'Forma de Pago'
     )
 
     dte_base64_data = fields.Text(
