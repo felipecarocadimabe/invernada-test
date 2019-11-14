@@ -59,7 +59,7 @@ class AccountInvoice(models.Model):
                     'IdDoc': {
                         'TipoDTE': self.dte_type_id.code,
                         'Folio': 0,
-                        'FchEmis': self.date_invoice,
+                        'FchEmis': str(self.date_invoice),
                         'TpoTranCompra': "1",
                         'TpoTranVenta': "1",
                         'FmaPago': self.dte_payment_mode_id.code
@@ -79,8 +79,6 @@ class AccountInvoice(models.Model):
                 'Detalle': self.get_detail_data()
             }
         }
-
-        raise models.ValidationError(str(self.date_invoice))
 
         res = requests.request(
             'POST',
