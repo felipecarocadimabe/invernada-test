@@ -6,10 +6,10 @@ class AccountPayment(models.Model):
 
     optional_usd = fields.Float(
         'Valor Dollar',
-        default=lambda self: self._get_usd_val()
+        # default=lambda self: self._get_usd_val()
     )
 
-    @api.model
+    @api.depends('invoice_ids')
     def _get_usd_val(self):
     #try:
         if len(self.invoice_ids) == 1:
