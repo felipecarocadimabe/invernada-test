@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+import datetime
 
 
 class AccountInvoice(models.Model):
@@ -11,6 +12,12 @@ class AccountInvoice(models.Model):
 
     @api.model
     def _default_exchange_rate(self):
+        date = self.date_invoice
+        if not date:
+            date = datetime.date.today()
+        currency_id = self.env['res.currency'].search([('name', '=', 'USD')])
+        rate = currency_id.rate_ids.search([('name', '=', date)])
+        rate.ensure_one()
+        return 1 / rate.rate
 
-        return 700
 
