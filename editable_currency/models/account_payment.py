@@ -16,9 +16,9 @@ class AccountPayment(models.Model):
             if len(self.invoice_ids) == 1:
                 self.optional_usd = self.invoice_ids.exchange_rate
             else:
-                self.optional_usd = 200
+                self.optional_usd = 0
         except:
-            self.optional_usd = 100
+            self.optional_usd = 0
 
     # @api.model
     # def _compute_amount_field(self):
