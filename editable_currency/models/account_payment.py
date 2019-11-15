@@ -13,11 +13,11 @@ class AccountPayment(models.Model):
     def _get_usd_val(self):
         try:
             if len(self.invoice_ids) == 1:
-                self.optional_usd = self.invoice_ids.exchange_rate
-            else
-                self.optional_usd = 200
+                return self.invoice_ids.exchange_rate
+            else:
+                return 200
         except:
-            self.optional_usd = 100
+            return 100
 
 
     # @api.model
