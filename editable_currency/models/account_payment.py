@@ -6,13 +6,13 @@ class AccountPayment(models.Model):
 
     optional_usd = fields.Float(
         'Valor Dollar',
-        # default=lambda self: self._get_usd_val()
+        default=lambda self: self._get_usd_val()
     )
 
-    @api.depends('invoice_ids')
+    @api.model
     def _get_usd_val(self):
     #try:
-        raise models.ValidationError(len(self.invoice_ids))
+        raise models.ValidationError(self.exchange_rate)
         if len(self.invoice_ids) == 1:
             return self.invoice_ids.exchange_rate
         else:
