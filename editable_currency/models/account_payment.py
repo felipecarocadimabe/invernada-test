@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+import time
 
 
 class AccountPayment(models.Model):
@@ -6,18 +7,19 @@ class AccountPayment(models.Model):
 
     optional_usd = fields.Float(
         'Valor Dollar',
-        compute='_get_usd_val'
+        default=lambda self: self._get_usd_val()
     )
 
     @api.model
     def _get_usd_val(self):
+        time.sleep(5)
         try:
             if len(self.invoice_ids) == 1:
-                self.optional_usd = self.invoice_ids.exchange_rate
+                return self.invoice_ids.exchange_rate
             else:
-                self.optional_usd = len(self.invoice_ids)
+                return len(self.invoice_ids)
         except:
-            self.optional_usd = 100
+            return 100
 
     # @api.model
     # def _compute_amount_field(self):
