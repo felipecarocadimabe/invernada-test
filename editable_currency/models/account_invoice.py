@@ -6,7 +6,7 @@ class AccountInvoice(models.Model):
 
     exchange_rate = fields.Float(
         'Taza de Cambio',
-        default='_default_exchange_rate'
+        default=lambda self: self._default_exchange_rate()
     )
 
     @api.model
