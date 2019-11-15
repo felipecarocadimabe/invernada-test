@@ -6,7 +6,7 @@ class AccountPayment(models.Model):
 
     optional_usd = fields.Float(
         'Valor Dollar',
-        compute='_get_usd_val'
+        default=lambda self: self._get_usd_val()
     )
 
     @api.model
