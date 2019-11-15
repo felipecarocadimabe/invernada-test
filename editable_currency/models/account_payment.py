@@ -11,8 +11,9 @@ class AccountPayment(models.Model):
     )
 
     @api.model
+    @api.depends('invoice_ids')
+    @api.onchange('invoice_ids')
     def _get_usd_val(self):
-        time.sleep(5)
         try:
             if len(self.invoice_ids) == 1:
                 return self.invoice_ids.exchange_rate
