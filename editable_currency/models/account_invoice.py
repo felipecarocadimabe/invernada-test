@@ -6,13 +6,11 @@ class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
     exchange_rate = fields.Float(
-        'Taza de Cambio',
-        compute='_default_exchange_rate',
-        store=True
+        'Taza de Cambio'
     )
 
     @api.model
-    @api.depends('date_invoice')
+    @api.onchange('date_invoice')
     def _default_exchange_rate(self):
         date = self.date_invoice
         if date:
