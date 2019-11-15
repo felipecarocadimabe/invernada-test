@@ -6,7 +6,9 @@
             <field name="inherit_id" ref="account.invoice_supplier_form" />
             <field name="arch" type="xml">
                 <field name="partner_bank_id" position="after">
+                    <!--
                     <field name="exchange_rate" />
+                    -->
                 </field>
             </field>
         </record>
