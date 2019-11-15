@@ -9,6 +9,10 @@ class AccountPayment(models.Model):
         compute=''
     )
 
+    #@api.model
+    #def _get_usd_val(self):
+
+
     # @api.model
     # def _compute_amount_field(self):
 
