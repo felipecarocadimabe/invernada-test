@@ -7,21 +7,20 @@ class AccountInvoice(models.Model):
 
     exchange_rate = fields.Float(
         'Taza de Cambio',
-        #compute='_default_exchange_rate',
-        #store=True
+        compute='_default_exchange_rate',
+        store=True
     )
 
-    #@api.model
-    #@api.depends('date_invoice')
-    #def _default_exchange_rate(self):
-    #    return 0
-    #    date = self.date_invoice
-    #    if date:
-    #        currency_id = self.env['res.currency'].search([('name', '=', 'USD')])
-    #        rate = currency_id.rate_ids.search([('name', '=', date)])
-    #        rate.ensure_one()
-    #        return 1 / rate.rate
-    #    else:
-    #        return 0
+    @api.model
+    @api.depends('date_invoice')
+    def _default_exchange_rate(self):
+        date = self.date_invoice
+        if date:
+            currency_id = self.env['res.currency'].search([('name', '=', 'USD')])
+            rate = currency_id.rate_ids.search([('name', '=', date)])
+            rate.ensure_one()
+            return 1 / rate.rate
+        else:
+            return 0
 
 
