@@ -27,7 +27,7 @@ class AccountInvoice(models.Model):
     def action_invoice_open(self):
 
         if not self.exchange_rate or self.exchange_rate == 0:
-            raise models.ValidationError(self)  # 'debe existir una taza de cambio') lkhdf
+            raise models.ValidationError(self.id)  # 'debe existir una taza de cambio') lkhdf
 
         return super(AccountInvoice, self).action_invoice_open()
 
