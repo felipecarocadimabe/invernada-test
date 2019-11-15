@@ -11,5 +11,6 @@ class AccountInvoice(models.Model):
 
     @api.model
     def _default_exchange_rate(self):
+
         return 700
 
