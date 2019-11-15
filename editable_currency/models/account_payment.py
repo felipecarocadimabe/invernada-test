@@ -15,7 +15,7 @@ class AccountPayment(models.Model):
             self.invoice_ids.ensure_one()
             self.optional_usd = self.invoice_ids.exchange_rate
         except:
-            self.optional_usd = 0
+            self.optional_usd = 100
 
 
     # @api.model
