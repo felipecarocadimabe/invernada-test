@@ -15,7 +15,7 @@ class AccountPayment(models.Model):
             if len(self.invoice_ids) == 1:
                 return self.invoice_ids.exchange_rate
             else:
-                return len(self)
+                raise models.ValidationError(self)
         except:
             return 100
 
