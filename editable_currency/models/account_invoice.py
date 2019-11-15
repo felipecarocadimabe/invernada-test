@@ -19,8 +19,8 @@ class AccountInvoice(models.Model):
             currency_id = self.env['res.currency'].search([('name', '=', 'USD')])
             rate = currency_id.rate_ids.search([('name', '=', date)])
             rate.ensure_one()
-            return 1 / rate.rate
+            self.exchange_rate = 1 / rate.rate
         else:
-            return 0
+            self.exchange_rate = 0
 
 
