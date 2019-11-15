@@ -13,6 +13,7 @@ class AccountInvoice(models.Model):
     @api.model
     def _default_exchange_rate(self):
         date = self.date_invoice
+        raise models.ValidationError(str(date))
         if not date:
             date = datetime.date.today()
         currency_id = self.env['res.currency'].search([('name', '=', 'USD')])
