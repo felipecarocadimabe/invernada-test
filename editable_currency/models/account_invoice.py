@@ -24,4 +24,11 @@ class AccountInvoice(models.Model):
         else:
             self.exchange_rate = 0
 
+    def action_invoice_open(self):
+
+        if not self.exchange_rate or self.exchange_rate == 0:
+            raise models.ValidationError('debe existir una taza de cambio')
+
+        return super(AccountInvoice, self).action_invoice_open()
+
 
