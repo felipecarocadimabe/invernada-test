@@ -6,11 +6,16 @@ class AccountPayment(models.Model):
 
     optional_usd = fields.Float(
         'Valor Dollar',
-        compute=''
+        compute='_get_usd_val'
     )
 
-    #@api.model
-    #def _get_usd_val(self):
+    @api.model
+    def _get_usd_val(self):
+        try:
+            self.invoice_ids.ensure_one()
+            self.optional_usd = self.invoice_ids.exchange_rate
+        except:
+            self.optional_usd = 0
 
 
     # @api.model
