@@ -5,11 +5,11 @@ import datetime
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
-    #exchange_rate = fields.Float(
-    #    'Taza de Cambio',
+    exchange_rate = fields.Float(
+        'Taza de Cambio',
         #compute='_default_exchange_rate',
         #store=True
-    #)
+    )
 
     #@api.model
     #@api.depends('date_invoice')
