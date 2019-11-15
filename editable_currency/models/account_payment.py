@@ -11,13 +11,13 @@ class AccountPayment(models.Model):
 
     @api.model
     def _get_usd_val(self):
-        try:
-            if len(self.invoice_ids) == 1:
-                return self.invoice_ids.exchange_rate
-            else:
-                raise models.ValidationError(self)
-        except:
-            return 100
+    #try:
+        if len(self.invoice_ids) == 1:
+            return self.invoice_ids.exchange_rate
+        else:
+            raise models.ValidationError(self)
+    #except:
+        return 100
 
 
     # @api.model
