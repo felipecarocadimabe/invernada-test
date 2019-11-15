@@ -14,6 +14,7 @@ class AccountInvoice(models.Model):
     @api.model
     @api.depends('date_invoice')
     def _default_exchange_rate(self):
+        return 0
         date = self.date_invoice
         if date:
             currency_id = self.env['res.currency'].search([('name', '=', 'USD')])
