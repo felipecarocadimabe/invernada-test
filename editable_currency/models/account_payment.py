@@ -17,7 +17,7 @@ class AccountPayment(models.Model):
             else:
                 return len(self.invoice_ids)
         except:
-            return 100
+            self.optional_usd = 100
 
 
     # @api.model
