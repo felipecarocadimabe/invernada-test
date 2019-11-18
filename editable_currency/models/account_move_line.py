@@ -14,7 +14,7 @@ class AccountMoveLine(models.Model):
         if self.invoice_id:
             optional_usd = self.invoice_id.exchange_rate
         else:
-            raise models.ValidationError(self.exists().invoice_id.id)
+            raise models.ValidationError(self.exists().id)
 
         date = self.env.context.get('date') or fields.Date.today()
         company = self.env.context.get('company_id')
