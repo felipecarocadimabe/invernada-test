@@ -38,7 +38,10 @@ class AccountPayment(models.Model):
                     Return the journal entry.
                 """
         optional_usd = self._context.get('optional_usd', False)
-        aml_obj = self.env['account.move.line'].with_context(check_move_validity=False)
+        aml_obj = self.env['account.move.line'].with_context(
+            check_move_validity=False,
+            optional_usd=optional_usd
+        )
         debit, credit, amount_currency, currency_id = aml_obj.with_context(
             date=self.payment_date,
             optional_usd=optional_usd
