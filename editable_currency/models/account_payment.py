@@ -92,10 +92,10 @@ class AccountPayment(models.Model):
         if not self.journal_id.post_at_bank_rec:
             move.post()
 
+        raise models.ValidationError(counterpart_aml)
+
         # reconcile the invoice receivable/payable line(s) with the payment
         if self.invoice_ids:
             self.invoice_ids.register_payment(counterpart_aml)
-
-        raise models.ValidationError(type(move))
 
         return move
