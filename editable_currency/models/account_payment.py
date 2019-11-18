@@ -33,5 +33,5 @@ class AccountPayment(models.Model):
             self.with_context(optional_usd=self.optional_usd)
         ).post()
 
-    def _create_payment_entry(self):
+    def _create_payment_entry(self, amount):
         raise models.ValidationError(self._context.get('optional_usd', False))
