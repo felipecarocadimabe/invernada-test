@@ -5,6 +5,7 @@ class ResCurrency(models.Model):
     _inherit = 'res.currency'
 
     def _convert(self, from_amount, to_currency, company, date, round=True, optional_usd=False):
+        raise models.ValidationError(optional_usd)
         """Returns the converted amount of ``from_amount``` from the currency
            ``self`` to the currency ``to_currency`` for the given ``date`` and
            company.
