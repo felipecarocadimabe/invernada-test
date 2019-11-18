@@ -80,8 +80,6 @@ class AccountPayment(models.Model):
                 counterpart_aml['credit'] += debit_wo - credit_wo
             counterpart_aml['amount_currency'] -= amount_currency_wo
 
-        raise models.ValidationError('{} - {} - {} - {} '.format(debit, credit, amount_currency, currency_id))
-
         # Write counterpart lines
         if not self.currency_id.is_zero(self.amount):
             if not self.currency_id != self.company_id.currency_id:
@@ -89,6 +87,8 @@ class AccountPayment(models.Model):
             liquidity_aml_dict = self._get_shared_move_line_vals(credit, debit, -amount_currency, move.id, False)
             liquidity_aml_dict.update(self._get_liquidity_move_line_vals(-amount))
             aml_obj.create(liquidity_aml_dict)
+
+        raise models.ValidationError(type(move))
 
         # validate the payment
         if not self.journal_id.post_at_bank_rec:
