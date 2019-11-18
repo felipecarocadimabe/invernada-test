@@ -4,7 +4,6 @@ from odoo import models, fields, api
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    @api.model
     def _compute_amount_fields(self, amount, src_currency, company_currency):
         """ Helper function to compute value for fields debit/credit/amount_currency based on an amount and the currencies given in parameter"""
         amount_currency = False
@@ -14,7 +13,7 @@ class AccountMoveLine(models.Model):
         if self.invoice_id:
             optional_usd = self.invoice_id.exchange_rate
         else:
-            raise models.ValidationError(self.ensure_one().id)
+            raise models.ValidationError(self.id)
 
         date = self.env.context.get('date') or fields.Date.today()
         company = self.env.context.get('company_id')
