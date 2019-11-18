@@ -4,9 +4,9 @@ from odoo import models, fields
 class ResCurrency(models.Model):
     _inherit = 'res.currency'
 
-    def _convert(self, from_amount, to_currency, company, date, round=True, optional_usd=False):
+    def _convert(self, from_amount, to_currency, company, date, round=True):
 
-        raise models.ValidationError('{} convert'.format(optional_usd))
+        raise models.ValidationError('{} convert'.format(self.env.context.get('optional_usd') or False))
 
         self, to_currency = self or to_currency, to_currency or self
         assert self, "convert amount from unknown currency"

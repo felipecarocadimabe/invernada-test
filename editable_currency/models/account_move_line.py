@@ -15,7 +15,9 @@ class AccountMoveLine(models.Model):
         company = self.env['res.company'].browse(company) if company else self.env.user.company_id
         if src_currency and src_currency != company_currency:
             amount_currency = amount
-            amount = src_currency._convert(amount, company_currency, company, date,optional_usd)
+            amount = src_currency.with_context(
+                optional_usd=optional_usd
+            )._convert(amount, company_currency, company, date)
             currency_id = src_currency.id
         debit = amount > 0 and amount or 0.0
         credit = amount < 0 and -amount or 0.0
