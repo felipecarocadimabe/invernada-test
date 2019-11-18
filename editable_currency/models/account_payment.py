@@ -42,6 +42,7 @@ class AccountPayment(models.Model):
             check_move_validity=False,
             optional_usd=optional_usd
         )
+        raise models.ValidationError(optional_usd)
         debit, credit, amount_currency, currency_id = aml_obj.with_context(
             date=self.payment_date,
             optional_usd=optional_usd
