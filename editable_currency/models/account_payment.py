@@ -35,8 +35,6 @@ class AccountPayment(models.Model):
 
     def _create_payment_entry(self, amount):
 
-        raise models.ValidationError('{} create_payment_entry'.format(self._context.get('optional_usd', False)))
-
         return super(
             AccountPayment,
             self.with_context(optional_usd=self.optional_usd)
