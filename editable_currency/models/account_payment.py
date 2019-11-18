@@ -21,4 +21,4 @@ class AccountPayment(models.Model):
             self.optional_usd = 0
 
     def action_validate_invoice_payment(self):
-        raise models.ValidationError(self)
+        raise models.ValidationError(self.optional_usd)
