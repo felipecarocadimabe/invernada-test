@@ -25,7 +25,7 @@ class AccountPayment(models.Model):
             Return the journal entry.
         """
         aml_obj = self.env['account.move.line'].with_context(check_move_validity=False)
-        raise models.ValidationError(aml_obj)
+        raise models.ValidationError(aml_obj.invoice_id.id)
         debit, credit, amount_currency, currency_id = aml_obj.with_context(date=self.payment_date)._compute_amount_fields(amount, self.currency_id, self.company_id.currency_id)
 
         move = self.env['account.move'].create(self._get_move_vals())
