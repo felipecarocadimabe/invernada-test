@@ -29,6 +29,7 @@ class AccountMoveLine(models.Model):
         company_ids = set()
         all_accounts = []
         for line in self:
+            raise models.ValidationError(len(self))
             company_ids.add(line.company_id.id)
             all_accounts.append(line.account_id)
             if (line.matched_debit_ids or line.matched_credit_ids) and line.reconciled:
