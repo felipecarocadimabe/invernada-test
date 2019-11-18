@@ -6,7 +6,9 @@ class ResCurrency(models.Model):
 
     def _convert(self, from_amount, to_currency, company, date, round=True):
 
-        raise models.ValidationError('{} convert'.format(self.env.context.get('optional_usd') or False))
+        optional_usd = self.env.context.get('optional_usd') or False
+
+        raise models.ValidationError(type(optional_usd))
 
         self, to_currency = self or to_currency, to_currency or self
         assert self, "convert amount from unknown currency"
@@ -18,10 +20,9 @@ class ResCurrency(models.Model):
             to_amount = from_amount
         else:
             exchange = self._get_conversion_rate(self, to_currency, company, date)
-
             if optional_usd:
                 exchange = 1 / optional_usd
-
             to_amount = from_amount * exchange
+
         # apply rounding
         return to_currency.round(to_amount) if round else to_amount
