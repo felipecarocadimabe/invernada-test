@@ -26,3 +26,12 @@ class AccountPayment(models.Model):
             AccountPayment,
             self.with_context(optional_usd=self.optional_usd)
         ).action_validate_invoice_payment()
+
+    def post(self):
+        return super(
+            AccountPayment,
+            self.with_context(optional_usd=self.optional_usd)
+        ).post()
+
+    def _create_payment_entry(self):
+        raise models.ValidationError(self._context.get('optional_usd', False))
