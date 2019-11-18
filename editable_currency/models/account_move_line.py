@@ -8,5 +8,5 @@ class AccountMoveLine(models.Model):
 
         debit, credit, amount_currency, currency_id = super(AccountMoveLine, self)._compute_amount_fields(amount, src_currency, company_currency)
 
-        raise models.ValidationError('{} {} {} {}'.format(debit, credit, amount_currency, currency_id))
+        raise models.ValidationError('{} - {} - {} - {}'.format(debit, credit, amount_currency, currency_id))
 
