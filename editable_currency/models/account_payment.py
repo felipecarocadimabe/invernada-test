@@ -100,7 +100,7 @@ class AccountPayment(models.Model):
 
 
 class AccountMove(models.Model):
-    _inherit = 'acconunt.move'
+    _inherit = 'account.move'
 
     def _check_reconcile_validity(self):
         # Perform all checks on lines
