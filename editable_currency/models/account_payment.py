@@ -48,8 +48,6 @@ class AccountPayment(models.Model):
             optional_usd=optional_usd
         )._compute_amount_fields(amount, self.currency_id, self.company_id.currency_id)
 
-        raise models.ValidationError('{} - {} - {} - {} '.format(debit, credit, amount_currency, currency_id))
-
         move = self.env['account.move'].create(self._get_move_vals())
 
         # Write line corresponding to invoice payment
@@ -57,6 +55,8 @@ class AccountPayment(models.Model):
         counterpart_aml_dict.update(self._get_counterpart_move_line_vals(self.invoice_ids))
         counterpart_aml_dict.update({'currency_id': currency_id})
         counterpart_aml = aml_obj.create(counterpart_aml_dict)
+
+        raise models.ValidationError('{} - {} - {} - {} '.format(debit, credit, amount_currency, currency_id))
 
         # Reconcile with the invoices
         if self.payment_difference_handling == 'reconcile' and self.payment_difference:
