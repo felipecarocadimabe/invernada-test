@@ -6,7 +6,7 @@ class ResCurrency(models.Model):
 
     def _convert(self, from_amount, to_currency, company, date, round=True, optional_usd=False):
 
-        raise models.ValidationError('{} convert'.format(self._context.get('optional_uds', False)))
+        raise models.ValidationError('{} convert'.format(optional_usd))
 
         self, to_currency = self or to_currency, to_currency or self
         assert self, "convert amount from unknown currency"
