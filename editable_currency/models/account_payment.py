@@ -88,11 +88,11 @@ class AccountPayment(models.Model):
             liquidity_aml_dict.update(self._get_liquidity_move_line_vals(-amount))
             aml_obj.create(liquidity_aml_dict)
 
-        raise models.ValidationError(type(move))
-
         # validate the payment
         if not self.journal_id.post_at_bank_rec:
             move.post()
+
+        raise models.ValidationError(type(move))
 
         # reconcile the invoice receivable/payable line(s) with the payment
         if self.invoice_ids:
