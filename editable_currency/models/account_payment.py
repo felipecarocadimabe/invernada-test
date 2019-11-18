@@ -56,8 +56,6 @@ class AccountPayment(models.Model):
         counterpart_aml_dict.update({'currency_id': currency_id})
         counterpart_aml = aml_obj.create(counterpart_aml_dict)
 
-        raise models.ValidationError('{} - {} - {} - {} '.format(debit, credit, amount_currency, currency_id))
-
         # Reconcile with the invoices
         if self.payment_difference_handling == 'reconcile' and self.payment_difference:
             writeoff_line = self._get_shared_move_line_vals(0, 0, 0, move.id, False)
@@ -81,6 +79,8 @@ class AccountPayment(models.Model):
             if counterpart_aml['credit'] or (writeoff_line['debit'] and not counterpart_aml['debit']):
                 counterpart_aml['credit'] += debit_wo - credit_wo
             counterpart_aml['amount_currency'] -= amount_currency_wo
+
+        raise models.ValidationError('{} - {} - {} - {} '.format(debit, credit, amount_currency, currency_id))
 
         # Write counterpart lines
         if not self.currency_id.is_zero(self.amount):
