@@ -104,6 +104,7 @@ class AccountMove(models.Model):
 
     def _check_reconcile_validity(self):
         # Perform all checks on lines
+        raise models.ValidationError('hola')
         company_ids = set()
         all_accounts = []
         for line in self:
