@@ -10,8 +10,12 @@ class AccountMoveLine(models.Model):
         amount_currency = False
         currency_id = False
         optional_usd = False
+
         if self.invoice_id:
             optional_usd = self.invoice_id.exchange_rate
+        else:
+            models.ValidationError(self.invoice_id)
+
         date = self.env.context.get('date') or fields.Date.today()
         company = self.env.context.get('company_id')
         company = self.env['res.company'].browse(company) if company else self.env.user.company_id
