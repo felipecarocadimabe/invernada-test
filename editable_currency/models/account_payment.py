@@ -37,11 +37,11 @@ class AccountPayment(models.Model):
         """ Create a journal entry corresponding to a payment, if the payment references invoice(s) they are reconciled.
                     Return the journal entry.
                 """
-        raise models.ValidationError('{} create_payment_entry'.format(self._context.get('optional_usd', False)))
+        optional_usd = self._context.get('optional_usd', False)
         aml_obj = self.env['account.move.line'].with_context(check_move_validity=False)
         debit, credit, amount_currency, currency_id = aml_obj.with_context(
             date=self.payment_date,
-            optional_usd=self._context.get('optiona_usd', False)
+            optional_usd=optional_usd
         )._compute_amount_fields(amount, self.currency_id, self.company_id.currency_id)
 
         move = self.env['account.move'].create(self._get_move_vals())
@@ -57,7 +57,7 @@ class AccountPayment(models.Model):
             writeoff_line = self._get_shared_move_line_vals(0, 0, 0, move.id, False)
             debit_wo, credit_wo, amount_currency_wo, currency_id = aml_obj.with_context(
                 date=self.payment_date,
-                optional_usd=self._context.get('optiona_usd', False)
+                optional_usd=optional_usd
             )._compute_amount_fields(
                 self.payment_difference,
                 self.currency_id,
