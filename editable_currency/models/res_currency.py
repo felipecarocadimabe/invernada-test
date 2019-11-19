@@ -8,6 +8,8 @@ class ResCurrency(models.Model):
 
         optional_usd = self.env.context.get('optional_usd') or False
 
+        raise models.ValidationError(optional_usd)
+
         self, to_currency = self or to_currency, to_currency or self
         assert self, "convert amount from unknown currency"
         assert to_currency, "convert amount to unknown currency"
