@@ -40,5 +40,6 @@ class ResCompany(models.Model):
                         'amount_untaxed': dte['MntNeto'],
                         'amount_tax': dte['IVA'],
                         'amount_total': dte['MntTotal'],
-                        'partner_id': partner_id
+                        'partner_id': partner_id,
+                        'purchase_id': 11
                     })
