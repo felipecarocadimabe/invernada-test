@@ -28,7 +28,7 @@ class AccountInvoice(models.Model):
                         'apikey': '790AEC76-9D15-4ABF-9709-E0E3DC45ABBC'
                     },
                     data=json.dumps({
-                        'date': date
+                        'date': date.strftime('%Y-%m-%d')
                     })
                 )
 
