@@ -1,4 +1,6 @@
 from odoo import models, fields
+import requests
+import json
 
 
 class ResCurrency(models.Model):
@@ -24,3 +26,29 @@ class ResCurrency(models.Model):
 
         # apply rounding
         return to_currency.round(to_amount) if round else to_amount
+
+    def get_rate_by_date(self, date):
+        res = requests.request(
+            'GET',
+            'https://services.dimabe.cl/api/currencies?date={}'.format(date.strftime('%Y-%m-%d')),
+            headers={
+                'apikey': '790AEC76-9D15-4ABF-9709-E0E3DC45ABBC'
+            }
+        )
+
+        response = json.loads(res.text)
+
+        raise models.ValidationError(response)
+
+        rate = None
+
+        for data in response:
+            if data['currency'] == 'USD':
+                rate = float(data['value'])
+
+        if res.status_code == 200:
+            self.env['res.currency.rate'].create({
+                'name': date,
+                'rate': rate,
+                'currency_id': self.id
+            })

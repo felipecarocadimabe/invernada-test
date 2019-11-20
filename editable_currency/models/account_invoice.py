@@ -16,25 +16,15 @@ class AccountInvoice(models.Model):
         date = self.date_invoice
         if date:
             currency_id = self.env['res.currency'].search([('name', '=', 'USD')])
+            rates = currency_id.rate_ids.search([('name', '=', date)])
+            if len(rates) == 0:
+                currency_id.get_rate_by_date(date)
+
             rates = currency_id.rate_ids.search([('name', '<=', date)])
+
             if len(rates) > 0:
                 rate = rates[0]
                 self.exchange_rate = 1 / rate.rate
-            else:
-                res = requests.request(
-                    'GET',
-                    'https://services.dimabe.cl/api/currencies?date={}'.format(date.strftime('%Y-%m-%d')),
-                    headers={
-                        'apikey': '790AEC76-9D15-4ABF-9709-E0E3DC45ABBC'
-                    }
-                )
-
-                response = json.loads(res.text)
-
-                raise models.ValidationError(res.text)
-
-                if res.status_code != 200:
-                    raise models.ValidationError(res.text)
         else:
             self.exchange_rate = 0
 
