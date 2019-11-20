@@ -38,13 +38,13 @@ class ResCurrency(models.Model):
 
         response = json.loads(res.text)
 
-        raise models.ValidationError(res.text)
-
         rate = None
 
         for data in response:
             if data['currency'] == 'USD':
                 rate = float(data['value'])
+
+        raise models.ValidationError(rate)
 
         if res.status_code == 200:
             self.env['res.currency.rate'].create({
