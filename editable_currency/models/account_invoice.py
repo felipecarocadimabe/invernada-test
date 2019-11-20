@@ -24,6 +24,7 @@ class AccountInvoice(models.Model):
 
             if len(rates) > 0:
                 rate = rates[0]
+                raise models.ValidationError(rate.rate)
                 self.exchange_rate = 1 / rate.rate
         else:
             self.exchange_rate = 0
