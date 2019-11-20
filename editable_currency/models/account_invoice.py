@@ -15,7 +15,7 @@ class AccountInvoice(models.Model):
         date = self.date_invoice
         if date:
             currency_id = self.env['res.currency'].search([('name', '=', 'USD')])
-            rate = currency_id.rate_ids.search([('name', '=', date)])
+            rate = currency_id.rate_ids.search([('name', '<=', date)])
             raise models.ValidationError(rate)
             try:
                 rate.ensure_one()
