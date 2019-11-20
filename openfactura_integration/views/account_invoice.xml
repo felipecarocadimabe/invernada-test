@@ -13,5 +13,18 @@
                 </field>
             </field>
         </record>
+        <record id="account_invoice_supplier_form_inherit" model="ir.ui.view">
+            <field name="name">formulario de factura</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form" />
+            <field name="arch" type="xml">
+                <field name="payment_term_id" position="after">
+                    <field name="dte_type_id" />
+                    <field name="dte_payment_mode_id" />
+                    <field name="dte_base64_data" widget="url" text="Ver"/>
+                    <field name="dte_folio" />
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>
