@@ -42,7 +42,8 @@ class ResCurrency(models.Model):
 
         for data in response:
             if data['currency'] == 'USD':
-                rate = float(data['value'])
+                tmp = data['value'].replace(',', '.')
+                rate = float(tmp)
 
         raise models.ValidationError(rate)
 
