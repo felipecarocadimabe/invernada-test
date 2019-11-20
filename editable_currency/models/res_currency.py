@@ -41,14 +41,14 @@ class ResCurrency(models.Model):
 
         response = json.loads(res.text)
 
-        rate = None
-
-        for data in response:
-            if data['currency'] == 'USD':
-                tmp = data['value'].replace(',', '.')
-                rate = 1 / float(tmp)
-
         if res.status_code == 200:
+            rate = None
+
+            for data in response:
+                if data['currency'] == 'USD':
+                    tmp = data['value'].replace(',', '.')
+                    rate = 1 / float(tmp)
+
             self.env['res.currency.rate'].create({
                 'name': date,
                 'rate': rate,
