@@ -43,7 +43,7 @@ class ResCurrency(models.Model):
         for data in response:
             if data['currency'] == 'USD':
                 tmp = data['value'].replace(',', '.')
-                rate = float(tmp)
+                rate = 1 / float(tmp)
 
         if res.status_code == 200:
             self.env['res.currency.rate'].create({
