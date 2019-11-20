@@ -1,5 +1,6 @@
 from odoo import models, fields, api
-import datetime
+import requests
+import json
 
 
 class AccountInvoice(models.Model):
@@ -15,13 +16,28 @@ class AccountInvoice(models.Model):
         date = self.date_invoice
         if date:
             currency_id = self.env['res.currency'].search([('name', '=', 'USD')])
-            rate = currency_id.rate_ids.search([('name', '<=', date)])
-            raise models.ValidationError(rate[0])
-            try:
-                rate.ensure_one()
+            rates = currency_id.rate_ids.search([('name', '<=', date)])
+            if len(rates) > 0:
+                rate = rates[0]
                 self.exchange_rate = 1 / rate.rate
-            except:
-                self.exchange_rate = 0
+            else:
+                res = requests.request(
+                    'GET',
+                    'https://services.dimabe.cl/api/currencies',
+                    headers={
+                        'apikey': '790AEC76-9D15-4ABF-9709-E0E3DC45ABBC'
+                    },
+                    data=json.dumps({
+                        'date': date
+                    })
+                )
+
+                response = json.loads(res.text)
+
+                raise models.ValidationError(res.text)
+
+                if res.status_code != 200:
+                    raise models.ValidationError(res.text)
         else:
             self.exchange_rate = 0
 
