@@ -45,8 +45,6 @@ class ResCurrency(models.Model):
                 tmp = data['value'].replace(',', '.')
                 rate = float(tmp)
 
-        raise models.ValidationError(rate)
-
         if res.status_code == 200:
             self.env['res.currency.rate'].create({
                 'name': date,
