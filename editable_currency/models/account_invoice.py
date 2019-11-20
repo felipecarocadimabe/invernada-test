@@ -26,24 +26,16 @@ class AccountInvoice(models.Model):
 
     def action_invoice_open(self):
 
-
-
         if self.id:
             if not self.exchange_rate or self.exchange_rate == 0:
                 raise models.ValidationError('debe existir una taza de cambio')
 
         return super(AccountInvoice, self).action_invoice_open()
 
-
-
-
-
     @api.multi
     def compute_invoice_totals(self, company_currency, invoice_move_lines):
-        raise models.ValidationError(self.exchange_rate)
         total = 0
         total_currency = 0
-        optional_usd = self.env.context.get('optional_usd') or False
         for line in invoice_move_lines:
             if self.currency_id != company_currency:
                 currency = self.currency_id
@@ -52,7 +44,7 @@ class AccountInvoice(models.Model):
                     line['currency_id'] = currency.id
                     line['amount_currency'] = currency.round(line['price'])
                     line['price'] = currency.with_context(
-                        optional_usd=optional_usd
+                        optional_usd=self.exchange_rate
                     )._convert(line['price'], company_currency, self.company_id, date)
             else:
                 line['currency_id'] = False
