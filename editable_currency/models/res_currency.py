@@ -38,7 +38,7 @@ class ResCurrency(models.Model):
 
         response = json.loads(res.text)
 
-        raise models.ValidationError(response)
+        raise models.ValidationError(res.text)
 
         rate = None
 
