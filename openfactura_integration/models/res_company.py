@@ -27,13 +27,15 @@ class ResCompany(models.Model):
                 tmp = self.env['account.invoice'].search([('dte_folio', '=', dte['Folio'])])
                 if len(tmp) == 0:
                     provider = self.env['res.partner'].search([('name', '=', dte['RznSoc'])])
+                    dte_type = self.env['dte.type'].search([('code', '=', dte['TipoDTE'])])
+                    dte_payment_mode = self.env['dte.payment.mode'].search([('code', '=', dte['FmaPago'])])
                     partner_id = None
                     if len(provider) == 1:
                         partner_id = provider.id
                     self.env['account.invoice'].create({
                         'dte_folio': dte['Folio'],
-                        'dte_type_id': dte['TipoDTE'],
-                        'dte_payment_mode_id': dte['FmaPago'],
+                        'dte_type_id': dte_type,
+                        'dte_payment_mode_id': dte_payment_mode,
                         'date_invoice': dte['FchEmis'],
                         'amount_untaxed': dte['MntNeto'],
                         'amount_tax': dte['IVA'],
