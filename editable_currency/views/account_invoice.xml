@@ -10,5 +10,16 @@
                 </field>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="account_invoice_form_inherit">
+            <field name="name">formulario cactura</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <field name="currency_id" position="after">
+                    <field name="exchange_rate" />
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>
