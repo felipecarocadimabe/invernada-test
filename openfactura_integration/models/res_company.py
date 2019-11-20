@@ -34,8 +34,8 @@ class ResCompany(models.Model):
                         partner_id = provider.id
                     self.env['account.invoice'].create({
                         'dte_folio': dte['Folio'],
-                        'dte_type_id': dte_type,
-                        'dte_payment_mode_id': dte_payment_mode,
+                        'dte_type_id': dte_type.id,
+                        'dte_payment_mode_id': dte_payment_mode.id,
                         'date_invoice': dte['FchEmis'],
                         'amount_untaxed': dte['MntNeto'],
                         'amount_tax': dte['IVA'],
