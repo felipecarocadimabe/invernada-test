@@ -15,7 +15,7 @@ class ResCompany(models.Model):
             'POST',
             'https://dev-api.haulmer.com/v2/dte/document/received',
             headers={
-                'apikey': self.company_id.api_key
+                'apikey': self.api_key
             }
         )
 
