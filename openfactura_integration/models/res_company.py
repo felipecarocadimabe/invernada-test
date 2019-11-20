@@ -41,5 +41,6 @@ class ResCompany(models.Model):
                         'amount_tax': dte['IVA'],
                         'amount_total': dte['MntTotal'],
                         'partner_id': partner_id,
-                        'purchase_id': 11
+                        'purchase_id': 11,
+                        'vendor_bill_purchase_id': 10
                     })
