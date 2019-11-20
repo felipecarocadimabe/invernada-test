@@ -1,7 +1,7 @@
 from odoo import models, fields
 import requests
 import json
-import datetime
+from datetime import datetime
 
 
 class ResCompany(models.Model):
