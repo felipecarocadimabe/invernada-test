@@ -6,6 +6,9 @@ import json
 class ResCurrency(models.Model):
     _inherit = 'res.currency'
 
+    rate = fields.Float(compute='_compute_current_rate', string='Current Rate', digits=(12, 10),
+                        help='The rate of the currency to the currency of rate 1.')
+
     def _convert(self, from_amount, to_currency, company, date, round=True):
 
         optional_usd = self.env.context.get('optional_usd') or False
