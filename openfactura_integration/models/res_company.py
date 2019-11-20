@@ -25,6 +25,7 @@ class ResCompany(models.Model):
         if response['data']:
             for dte in response['data']:
                 tmp = self.env['account.invoice'].search([('dte_folio', '=', dte['Folio'])])
+                raise models.ValidationError(tmp)
                 if len(tmp) == 0:
                     provider = self.env['res.partner'].search([('name', '=', dte['RznSoc'])])
                     dte_type = self.env['dte.type'].search([('code', '=', dte['TipoDTE'])])
