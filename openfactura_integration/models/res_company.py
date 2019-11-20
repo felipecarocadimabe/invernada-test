@@ -34,7 +34,7 @@ class ResCompany(models.Model):
                         'dte_folio': dte['Folio'],
                         'dte_type_id': dte['TipoDTE'],
                         'dte_payment_mode_id': dte['FmaPago'],
-                        'date_invoice': datetime.strptime(dte['FchEmis'], '%Y-%m-%d'),
+                        'date_invoice': dte['FchEmis'],
                         'amount_untaxed': dte['MntNeto'],
                         'amount_tax': dte['IVA'],
                         'amount_total': dte['MntTotal'],
