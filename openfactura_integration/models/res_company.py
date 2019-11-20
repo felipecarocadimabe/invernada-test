@@ -32,7 +32,7 @@ class ResCompany(models.Model):
                     partner_id = None
                     if len(provider) == 1:
                         partner_id = provider.id
-                    raise models.ValidationError(self._context('type'))
+                    raise models.ValidationError(self.env.context('type'))
                     self.env['account.invoice'].create({
                         'dte_folio': dte['Folio'],
                         'dte_type_id': dte_type.id,
