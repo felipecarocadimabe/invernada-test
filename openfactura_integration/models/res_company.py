@@ -32,8 +32,10 @@ class ResCompany(models.Model):
                     partner_id = None
                     if len(provider) == 1:
                         partner_id = provider.id
-                    raise models.ValidationError(self._context.get('type'))
-                    self.env['account.invoice'].create({
+                    self.env['account.invoice'].with_context(
+                        default_type='in_invoice',
+                        type='in_invoice'
+                    ).create({
                         'dte_folio': dte['Folio'],
                         'dte_type_id': dte_type.id,
                         'dte_payment_mode_id': dte_payment_mode.id,
