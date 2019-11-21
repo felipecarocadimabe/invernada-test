@@ -40,6 +40,12 @@ class AccountInvoice(models.Model):
         return lines
 
     def action_invoice_open(self):
+        taxes = []
+
+        for line in self.invoice_line_ids:
+            taxes += line.invoice_line_tax_ids.mapped('amount')
+
+        tax = sum(taxes) / len(self.invoice_line_ids)
 
         data = {
             'response': [
@@ -60,7 +66,7 @@ class AccountInvoice(models.Model):
                     'Receptor': self.partner_id.get_receiver_data(),
                     'Totales': {
                         'MntNeto': self.amount_untaxed,
-                        'TasaIVA': "1",
+                        'TasaIVA': tax,
                         'IVA': self.amount_tax,
                         'MntTotal': self.amount_total,
                         'MontoPeriodo': self.amount_total,
@@ -81,13 +87,6 @@ class AccountInvoice(models.Model):
         )
 
         response = json.loads(res.text)
-
-        taxes = []
-
-        for line in self.invoice_line_ids:
-            taxes += line.invoice_line_tax_ids.mapped('amount')
-
-        raise models.ValidationError(sum(taxes)/len(self.invoice_line_ids))
 
         if res.status_code != 200:
             if 'error' in response and 'message' in response['error']:
