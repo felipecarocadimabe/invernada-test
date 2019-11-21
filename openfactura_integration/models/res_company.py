@@ -61,15 +61,15 @@ class ResCompany(models.Model):
 
                                     product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
 
-                                    invoice_line = {
-                                        'secuence': line['NroLinDet'],
-                                        'quantity': line['QtyItem'],
-                                        'price_unit': line['PrcItem'],
-                                        'price_subtotal': line['MontoItem'],
-                                        'product_id': product.id
-                                    }
-
-                                    invoice_lines.append(invoice_line)
+                                    if len(product) == 1:
+                                        invoice_line = {
+                                            'secuence': line['NroLinDet'],
+                                            'quantity': line['QtyItem'],
+                                            'price_unit': line['PrcItem'],
+                                            'price_subtotal': line['MontoItem'],
+                                            'product_id': product.id
+                                        }
+                                        invoice_lines.append(invoice_line)
 
                                 if len(invoice_lines) > 0:
 
