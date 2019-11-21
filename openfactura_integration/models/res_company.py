@@ -68,7 +68,7 @@ class ResCompany(models.Model):
                                     'amount_total': dte['MntTotal'],
                                     'partner_id': partner_id,
                                 })
-
+                                models.ValidationError(type(detail_response))
                                 for line in detail_response['json']['Detalle']:
                                     product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
 
