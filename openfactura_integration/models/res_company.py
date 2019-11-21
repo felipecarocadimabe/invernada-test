@@ -2,6 +2,7 @@ from odoo import models, fields
 import requests
 import json
 from ..helper.rut_helper import calculate_dv
+from datetime import datetime, timedelta
 
 
 class ResCompany(models.Model):
@@ -12,11 +13,20 @@ class ResCompany(models.Model):
     idempotency_key = fields.Char('Idempotency Key')
 
     def sync_received_invoice(self):
+        today = datetime.strftime(datetime.today(), '%Y-%m-%d')
+        tomorrow = datetime.strftime(datetime.today() + timedelta(1), '%Y-%m-%d')
+        raise models.ValidationError('{} {}'.format(today, tomorrow))
         res = requests.request(
             'POST',
             'https://dev-api.haulmer.com/v2/dte/document/received',
             headers={
                 'apikey': self.api_key
+            },
+            data={
+                "FchEmis": {
+                    "lte": tomorrow,
+                    "gte": today
+                }
             }
         )
 
