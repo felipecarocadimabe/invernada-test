@@ -49,7 +49,7 @@ class ResCompany(models.Model):
                     )
                     detail_response = json.dumps(detail_res.text)
 
-                    raise models.ValidationError(detail_res.text)
+                    raise models.ValidationError(detail_res.status_code)
 
                     if detail_response['json']:
 
