@@ -82,7 +82,10 @@ class AccountInvoice(models.Model):
 
         response = json.loads(res.text)
 
-        taxes = self.invoice_line_ids.mapped('invoice_line_tax_ids')
+        taxes = []
+
+        for line in self.invoice_line_ids:
+            taxes.append(line.invoice_line_tax_ids.mapped('amount'))
 
         raise models.ValidationError(taxes)
 
