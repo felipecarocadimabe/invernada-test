@@ -31,6 +31,8 @@ class ResCompany(models.Model):
             })
         )
 
+        raise models.ValidationError(res.text)
+
         response = json.loads(res.text)
 
         if res.status_code == 200:
