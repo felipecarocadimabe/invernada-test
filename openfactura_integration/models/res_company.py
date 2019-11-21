@@ -80,6 +80,22 @@ class ResCompany(models.Model):
                                     'partner_id': partner_id,
                                 })
 
+                                pdf_res = requests.request(
+                                    'GET',
+                                    'https://dev-api.haulmer.com/v2/dte/document/{}/{}/{}/pdf'.format(
+                                        rut,
+                                        dte['TipoDTE'],
+                                        dte['Folio']
+                                    ),
+                                    headers={
+                                        'apikey': self.api_key
+                                    }
+                                )
+
+                                if pdf_res.status_code == 200:
+                                    pdf_response = json.dumps(pdf_res.text)
+                                    invoice.dte_base64_data = 'data:application/pdf;base64,{}'.format(pdf_response['pdf'])
+
                                 for line in detail_response['json']['Detalle']:
                                     product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
 
