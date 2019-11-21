@@ -73,6 +73,7 @@ class ResCompany(models.Model):
                                         product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
 
                                         if len(product) == 1 and product.product_tmpl_id.property_account_expense_id.id:
+                                            raise models.ValidationError(dte['Folio'])
                                             self.env['account.invoice.line'].create({
                                                 'secuence': line['NroLinDet'],
                                                 'quantity': line['QtyItem'],
