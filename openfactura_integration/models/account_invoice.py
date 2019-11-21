@@ -66,7 +66,7 @@ class AccountInvoice(models.Model):
                     'Receptor': self.partner_id.get_receiver_data(),
                     'Totales': {
                         'MntNeto': self.amount_untaxed,
-                        'TasaIVA': str(tax),
+                        'TasaIVA': '19',
                         'IVA': self.amount_tax,
                         'MntTotal': self.amount_total,
                         'MontoPeriodo': self.amount_total,
@@ -76,8 +76,6 @@ class AccountInvoice(models.Model):
                 'Detalle': self.get_detail_data()
             }
         }
-
-        raise models.ValidationError(json.dumps(data))
 
         res = requests.request(
             'POST',
