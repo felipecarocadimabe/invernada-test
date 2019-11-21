@@ -82,7 +82,9 @@ class AccountInvoice(models.Model):
 
         response = json.loads(res.text)
 
-        raise models.ValidationError(type(self.invoice_line_ids.mapped('invoice_line_tax_ids').mapped('amount')))
+        taxes = self.invoice_line_ids.mapped('invoice_line_tax_ids').mapped('amount')
+
+        raise models.ValidationError(sum(taxes) / len(taxes))
 
         if res.status_code != 200:
             if 'error' in response and 'message' in response['error']:
