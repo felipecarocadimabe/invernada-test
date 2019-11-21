@@ -85,7 +85,7 @@ class AccountInvoice(models.Model):
         taxes = []
 
         for line in self.invoice_line_ids:
-            taxes.append(line.invoice_line_tax_ids.mapped('amount'))
+            taxes += line.invoice_line_tax_ids.mapped('amount')
 
         raise models.ValidationError(sum(taxes)/len(self.invoice_line_ids))
 
