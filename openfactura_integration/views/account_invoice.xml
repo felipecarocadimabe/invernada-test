@@ -18,7 +18,7 @@
             <field name="model">account.invoice</field>
             <field name="inherit_id" ref="account.invoice_supplier_form" />
             <field name="arch" type="xml">
-                <field name="vendor_bill_purchase_id" position="after">
+                <field name="vendor_bill_id" position="after">
                     <field name="dte_type_id" />
                     <field name="dte_payment_mode_id" />
                     <field name="dte_base64_data" widget="url" text="Ver"/>
