@@ -52,10 +52,11 @@ class ResCompany(models.Model):
                         detail_response = json.dumps(detail_res.text)
 
                         if detail_res.status_code == 200:
+                            raise models.ValidationError(detail_response['json'])
 
                             if detail_response['json']:
 
-                                raise models.ValidationError(detail_response['json'])
+
 
                                 invoice_lines = []
 
