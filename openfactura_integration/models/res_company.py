@@ -66,6 +66,11 @@ class ResCompany(models.Model):
 
                             if 'json' in detail_response and 'Detalle' in detail_response['json']:
 
+                                tax = self.env['account.tax'].search([
+                                    ('name', '=', 'IVA'),
+                                    ('type_tax_use', '=', 'purchase')
+                                ])
+
                                 invoice = self.env['account.invoice'].with_context(
                                     default_type='in_invoice',
                                     type='in_invoice'
@@ -98,11 +103,6 @@ class ResCompany(models.Model):
 
                                 for line in detail_response['json']['Detalle']:
                                     product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
-
-                                    tax = self.env['account.tax'].search([
-                                        ('name', '=', 'IVA'),
-                                        ('type_tax_use', '=', 'purchase')
-                                    ])
 
                                     if len(product) == 1 and product.product_tmpl_id.property_account_expense_id.id:
                                         self.env['account.invoice.line'].create({
