@@ -35,14 +35,15 @@ class ResCompany(models.Model):
 
                     dv = calculate_dv(dte['RUTEmisor'])
                     rut = '{}-{}'.format(dte['RUTEmisor'], dv)
-
-                    detail_res = requests.request(
-                        'GET',
-                        'https://dev-api.haulmer.com/v2/dte/document/{}/{}/{}/json'.format(
+                    url = 'https://dev-api.haulmer.com/v2/dte/document/{}/{}/{}/json'.format(
                             rut,
                             dte['TipoDTE'],
                             dte['Folio']
-                        ),
+                        )
+                    raise models.ValidationError(url)
+                    detail_res = requests.request(
+                        'GET',
+                        url,
                         headers={
                             'apikey': self.api_key
                         }
