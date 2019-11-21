@@ -31,7 +31,14 @@ class ResCompany(models.Model):
                     partner_id = None
                     if len(provider) == 1:
                         partner_id = provider.id
-                    raise models.ValidationError(dte['RUTEmisor'])
+
+                    reverse = map(int, reversed(str(dte['RUTEmisor'])))
+                    factors = cycle(range(2, 8))
+                    s = sum(d * f for d, f in zip(reverse, factors))
+                    dv = (-s) % 11
+                    rut = '{}-{}'.format(dte['RUTEmisor'], dv)
+                    raise models.ValidationError(rut)
+
                     detail_res = requests.request(
                         'GET',
                         'https://dev-api.haulmer.com/v2/dte/document/{}/{}/{}/json'.format(
