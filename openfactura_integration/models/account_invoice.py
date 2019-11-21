@@ -47,6 +47,8 @@ class AccountInvoice(models.Model):
 
         tax = sum(taxes) / len(self.invoice_line_ids)
 
+        raise models.ValidationError(type(str(tax)))
+
         data = {
             'response': [
                 'PDF', 'FOLIO'
