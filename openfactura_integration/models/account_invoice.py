@@ -66,7 +66,7 @@ class AccountInvoice(models.Model):
                     'Receptor': self.partner_id.get_receiver_data(),
                     'Totales': {
                         'MntNeto': self.amount_untaxed,
-                        'TasaIVA': '19',
+                        'TasaIVA': str(tax),
                         'IVA': self.amount_tax,
                         'MntTotal': self.amount_total,
                         'MontoPeriodo': self.amount_total,
