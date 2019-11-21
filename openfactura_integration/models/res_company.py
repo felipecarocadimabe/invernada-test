@@ -81,5 +81,7 @@ class ResCompany(models.Model):
                                             'product_id': product.id,
                                             'invoice_id': invoice.id,
                                             'name': '{} {}'.format(product.name, product.description_purchase),
-                                            'journal_id': 2
+                                            'journal_id': 2,
+                                            'account_id': None,
+                                            'display_type': None
                                         })
