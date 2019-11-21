@@ -88,7 +88,7 @@ class AccountInvoice(models.Model):
                 if 'details' in response['error']:
                     for detail in response['error']['details']:
                         if 'field' in detail and 'issue' in detail:
-                            text += '{} {}'.format(detail['field'], detail['issue'])
+                            text += '{} {} \n'.format(detail['field'], detail['issue'])
                 raise models.ValidationError(text)
             raise models.ValidationError(res.text)
 
