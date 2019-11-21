@@ -104,6 +104,8 @@ class ResCompany(models.Model):
                                         ('type_tax_use', '=', 'purchase')
                                     ])
 
+                                    raise models.ValidationError(tax)
+
                                     if len(product) == 1 and product.product_tmpl_id.property_account_expense_id.id:
                                         self.env['account.invoice.line'].create({
                                             'secuence': line['NroLinDet'],
