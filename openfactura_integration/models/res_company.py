@@ -55,6 +55,8 @@ class ResCompany(models.Model):
 
                             if detail_response['json']:
 
+                                raise models.ValidationError(detail_response['json'])
+
                                 invoice_lines = []
 
                                 for line in detail_response['json']['Detalle']:
