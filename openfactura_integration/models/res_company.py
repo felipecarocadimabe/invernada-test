@@ -61,8 +61,6 @@ class ResCompany(models.Model):
 
                                     product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
 
-                                    raise models.ValidationError(product)
-
                                     invoice_line = {
                                         'secuence': line['NroLinDet'],
                                         'quantity': line['QtyItem'],
