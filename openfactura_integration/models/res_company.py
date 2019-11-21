@@ -13,9 +13,10 @@ class ResCompany(models.Model):
     idempotency_key = fields.Char('Idempotency Key')
 
     def sync_received_invoice(self):
+
         today = datetime.strftime(datetime.today(), '%Y-%m-%d')
         tomorrow = datetime.strftime(datetime.today() + timedelta(1), '%Y-%m-%d')
-        raise models.ValidationError('{} {}'.format(today, tomorrow))
+
         res = requests.request(
             'POST',
             'https://dev-api.haulmer.com/v2/dte/document/received',
