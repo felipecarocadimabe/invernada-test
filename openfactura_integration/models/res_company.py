@@ -1,6 +1,7 @@
 from odoo import models, fields
 import requests
 import json
+from itertools import cycle
 
 
 class ResCompany(models.Model):
