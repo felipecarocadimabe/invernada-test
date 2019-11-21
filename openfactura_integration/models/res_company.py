@@ -59,7 +59,7 @@ class ResCompany(models.Model):
 
                                 for line in detail_response['json']['Detalle']:
 
-                                    product = self.env['product.product'].search(['name', '=', line['NmbItem']])
+                                    product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
 
                                     raise models.ValidationError(product)
 
