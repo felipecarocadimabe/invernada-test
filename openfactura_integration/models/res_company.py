@@ -24,7 +24,7 @@ class ResCompany(models.Model):
 
         if res.status_code == 200:
 
-            if response['data']:
+            if 'data' in response:
                 for dte in response['data']:
                     tmp = self.env['account.invoice'].search([('dte_folio', '=', dte['Folio'])])
                     if len(tmp) == 0:
@@ -53,7 +53,7 @@ class ResCompany(models.Model):
 
                         if detail_res.status_code == 200:
 
-                            if detail_response['json']:
+                            if 'json' in detail_response:
 
                                 invoice = self.env['account.invoice'].with_context(
                                     default_type='in_invoice',
@@ -68,18 +68,18 @@ class ResCompany(models.Model):
                                     'amount_total': dte['MntTotal'],
                                     'partner_id': partner_id,
                                 })
-                                raise models.ValidationError(type(detail_response))
-                                for line in detail_response['json']['Detalle']:
-                                    product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
+                                if 'Detalle' in detail_response['json']:
+                                    for line in detail_response['json']['Detalle']:
+                                        product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
 
-                                    if len(product) == 1 and product.product_tmpl_id.property_account_expense_id.id:
-                                        self.env['account.invoice.line'].create({
-                                            'secuence': line['NroLinDet'],
-                                            'quantity': line['QtyItem'],
-                                            'price_unit': line['PrcItem'],
-                                            'price_subtotal': line['MontoItem'],
-                                            'product_id': product.id,
-                                            'invoice_id': invoice.id,
-                                            'name': '{} {}'.format(product.name, product.description_purchase),
-                                            'account_id': product.product_tmpl_id.property_account_expense_id.id
-                                        })
+                                        if len(product) == 1 and product.product_tmpl_id.property_account_expense_id.id:
+                                            self.env['account.invoice.line'].create({
+                                                'secuence': line['NroLinDet'],
+                                                'quantity': line['QtyItem'],
+                                                'price_unit': line['PrcItem'],
+                                                'price_subtotal': line['MontoItem'],
+                                                'product_id': product.id,
+                                                'invoice_id': invoice.id,
+                                                'name': '{} {}'.format(product.name, product.description_purchase),
+                                                'account_id': product.product_tmpl_id.property_account_expense_id.id
+                                            })
