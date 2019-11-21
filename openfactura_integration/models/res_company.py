@@ -23,12 +23,12 @@ class ResCompany(models.Model):
             headers={
                 'apikey': self.api_key
             },
-            data={
+            data=json.dumps({
                 "FchEmis": {
                     "lte": tomorrow,
                     "gte": today
                 }
-            }
+            })
         )
 
         response = json.loads(res.text)
