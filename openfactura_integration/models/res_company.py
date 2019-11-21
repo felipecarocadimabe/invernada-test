@@ -58,13 +58,10 @@ class ResCompany(models.Model):
                                 invoice_lines = []
 
                                 for line in detail_response['json']['Detalle']:
-                                    raise models.ValidationError('https://dev-api.haulmer.com/v2/dte/document/{}/{}/{}/json'.format(
-                                rut,
-                                dte['TipoDTE'],
-                                dte['Folio']
-                            ))
 
                                     product = self.env['product.product'].search(['name', '=', line['NmbItem']])
+
+                                    raise models.ValidationError(product)
 
                                     invoice_line = {
                                         'secuence': line['NroLinDet'],
