@@ -111,7 +111,7 @@ class ResCompany(models.Model):
                                             'price_unit': line['PrcItem'],
                                             'price_subtotal': line['MontoItem'],
                                             'product_id': product.id,
-                                            'invoice_line_tax_ids': tax.id,
+                                            'invoice_line_tax_ids': [tax.id],
                                             'invoice_id': invoice.id,
                                             'name': '{} {}'.format(product.name, product.description_purchase),
                                             'account_id': product.product_tmpl_id.property_account_expense_id.id
