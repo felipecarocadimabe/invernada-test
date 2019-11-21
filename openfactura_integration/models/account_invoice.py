@@ -82,6 +82,8 @@ class AccountInvoice(models.Model):
 
         response = json.loads(res.text)
 
+        raise models.ValidationError(self.invoice_line_tax_ids)
+
         if res.status_code != 200:
             if 'error' in response and 'message' in response['error']:
                 text = '{} \n'.format(response['error']['message'])
