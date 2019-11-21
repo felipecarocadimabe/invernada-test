@@ -1,7 +1,7 @@
 from odoo import models, fields
 import requests
 import json
-from itertools import cycle
+from ..helper.rut_helper import calculate_dv
 
 
 class ResCompany(models.Model):
@@ -33,17 +33,13 @@ class ResCompany(models.Model):
                     if len(provider) == 1:
                         partner_id = provider.id
 
-                    reverse = map(int, reversed(str(dte['RUTEmisor'])))
-                    factors = cycle(range(2, 8))
-                    s = sum(d * f for d, f in zip(reverse, factors))
-                    dv = (-s) % 11
+                    dv = calculate_dv(dte['RUTEmisor'])
                     rut = '{}-{}'.format(dte['RUTEmisor'], dv)
-                    raise models.ValidationError(rut)
 
                     detail_res = requests.request(
                         'GET',
                         'https://dev-api.haulmer.com/v2/dte/document/{}/{}/{}/json'.format(
-                            dte['RUTEmisor'],
+                            rut,
                             dte['TipoDTE'],
                             dte['Folio']
                         ),
