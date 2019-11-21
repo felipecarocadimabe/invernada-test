@@ -80,5 +80,6 @@ class ResCompany(models.Model):
                                             'price_unit': line['PrcItem'],
                                             'price_subtotal': line['MontoItem'],
                                             'product_id': product.id,
-                                            'invoice_id': invoice.id
+                                            'invoice_id': invoice.id,
+                                            'name': product.description
                                         })
