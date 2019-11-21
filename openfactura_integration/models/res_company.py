@@ -1,7 +1,6 @@
 from odoo import models, fields
 import requests
 import json
-from datetime import datetime
 
 
 class ResCompany(models.Model):
@@ -32,18 +31,49 @@ class ResCompany(models.Model):
                     partner_id = None
                     if len(provider) == 1:
                         partner_id = provider.id
-                    self.env['account.invoice'].with_context(
-                        default_type='in_invoice',
-                        type='in_invoice'
-                    ).create({
-                        'dte_folio': dte['Folio'],
-                        'dte_type_id': dte_type.id,
-                        'dte_payment_mode_id': dte_payment_mode.id,
-                        'date_invoice': dte['FchEmis'],
-                        'amount_untaxed': dte['MntNeto'],
-                        'amount_tax': dte['IVA'],
-                        'amount_total': dte['MntTotal'],
-                        'partner_id': partner_id,
-                        'purchase_id': 11,
-                        'vendor_bill_purchase_id': 10
-                    })
+                    detail_res = requests.request(
+                        'GET',
+                        'https://dev-api.haulmer.com/v2/dte/document/{}/{}/{}/json'.format(
+                            dte['RUTEmisor'],
+                            dte['TipoDTE'],
+                            dte['Folio']
+                        ),
+                        headers={
+                            'apikey': self.api_key
+                        }
+                    )
+                    detail_response = json.dumps(detail_res.text)
+
+                    if detail_response['json']:
+
+                        invoice_lines = []
+
+                        for line in detail_response['json']['Detalle']:
+                            product = self.env['product.product'].search(['name', '=', line['NmbItem']])
+
+                            invoice_line = {
+                                'secuence': line['NroLinDet'],
+                                'quantity': line['QtyItem'],
+                                'price_unit': line['PrcItem'],
+                                'price_subtotal': line['MontoItem'],
+                                'product_id': product.id
+                            }
+
+                            invoice_lines.append(invoice_line)
+
+                        if len(invoice_lines) > 0:
+
+                            self.env['account.invoice'].with_context(
+                                default_type='in_invoice',
+                                type='in_invoice'
+                            ).create({
+                                'dte_folio': dte['Folio'],
+                                'dte_type_id': dte_type.id,
+                                'dte_payment_mode_id': dte_payment_mode.id,
+                                'date_invoice': dte['FchEmis'],
+                                'amount_untaxed': dte['MntNeto'],
+                                'amount_tax': dte['IVA'],
+                                'amount_total': dte['MntTotal'],
+                                'partner_id': partner_id,
+                                'invoice_line_ids': invoice_lines
+                            })
