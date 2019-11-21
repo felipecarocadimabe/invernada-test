@@ -80,5 +80,6 @@ class ResCompany(models.Model):
                                             'price_subtotal': line['MontoItem'],
                                             'product_id': product.id,
                                             'invoice_id': invoice.id,
-                                            'name': '{} {}'.format(product.name, product.description_purchase)
+                                            'name': '{} {}'.format(product.name, product.description_purchase),
+                                            'journal_id': 2
                                         })
