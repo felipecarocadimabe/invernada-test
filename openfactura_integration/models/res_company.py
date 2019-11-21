@@ -72,7 +72,7 @@ class ResCompany(models.Model):
                                 for line in detail_response['json']['Detalle']:
                                     product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
 
-                                    raise models.ValidationError(product.product_tmpl_id.property_account_expense_id)
+                                    raise models.ValidationError(product.product_tmpl_id.property_account_expense_id.id)
                                     if len(product) == 1:
                                         self.env['account.invoice.line'].create({
                                             'secuence': line['NroLinDet'],
