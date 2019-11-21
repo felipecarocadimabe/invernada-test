@@ -58,6 +58,8 @@ class ResCompany(models.Model):
                                 invoice_lines = []
 
                                 for line in detail_response['json']['Detalle']:
+                                    raise models.ValidationError(line['NmbItem'])
+
                                     product = self.env['product.product'].search(['name', '=', line['NmbItem']])
 
                                     invoice_line = {
