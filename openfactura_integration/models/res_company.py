@@ -73,7 +73,7 @@ class ResCompany(models.Model):
 
                                 if len(invoice_lines) > 0:
 
-                                    raise models.ValidationError(invoice_lines)
+                                    raise models.ValidationError(json.dumps(invoice_lines))
 
                                     self.env['account.invoice'].with_context(
                                         default_type='in_invoice',
