@@ -94,7 +94,6 @@ class ResCompany(models.Model):
 
                                 if pdf_res.status_code == 200:
                                     pdf_response = json.loads(pdf_res.text)
-                                    raise models.ValidationError(pdf_response['pdf'])
                                     invoice.dte_base64_data = 'data:application/pdf;base64,{}'.format(pdf_response['pdf'])
 
                                 for line in detail_response['json']['Detalle']:
