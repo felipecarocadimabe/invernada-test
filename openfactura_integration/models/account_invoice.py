@@ -82,7 +82,7 @@ class AccountInvoice(models.Model):
 
         response = json.loads(res.text)
 
-        taxes = self.invoice_line_ids.mapped('invoice_line_tax_ids').mapped('amount')
+        taxes = self.invoice_line_ids.mapped('invoice_line_tax_ids.amount')
 
         raise models.ValidationError(sum(taxes) / len(self.invoice_line_ids))
 
