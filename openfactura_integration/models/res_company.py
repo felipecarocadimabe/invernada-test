@@ -55,37 +55,30 @@ class ResCompany(models.Model):
 
                             if detail_response['json']:
 
-                                invoice_lines = []
+                                invoice = self.env['account.invoice'].with_context(
+                                    default_type='in_invoice',
+                                    type='in_invoice'
+                                ).create({
+                                    'dte_folio': dte['Folio'],
+                                    'dte_type_id': dte_type.id,
+                                    'dte_payment_mode_id': dte_payment_mode.id,
+                                    'date_invoice': dte['FchEmis'],
+                                    'amount_untaxed': dte['MntNeto'],
+                                    'amount_tax': dte['IVA'],
+                                    'amount_total': dte['MntTotal'],
+                                    'partner_id': partner_id,
+                                })
 
                                 for line in detail_response['json']['Detalle']:
 
                                     product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
 
                                     if len(product) == 1:
-                                        invoice_line = {
+                                        self.env['account.invoice.line'].create({
                                             'secuence': line['NroLinDet'],
                                             'quantity': line['QtyItem'],
                                             'price_unit': line['PrcItem'],
                                             'price_subtotal': line['MontoItem'],
-                                            'product_id': product.id
-                                        }
-                                        invoice_lines.append(invoice_line)
-
-                                if len(invoice_lines) > 0:
-
-                                    self.env['account.invoice'].with_context(
-                                        default_type='in_invoice',
-                                        type='in_invoice'
-                                    ).create({
-                                        'dte_folio': dte['Folio'],
-                                        'dte_type_id': dte_type.id,
-                                        'dte_payment_mode_id': dte_payment_mode.id,
-                                        'date_invoice': dte['FchEmis'],
-                                        'amount_untaxed': dte['MntNeto'],
-                                        'amount_tax': dte['IVA'],
-                                        'amount_total': dte['MntTotal'],
-                                        'partner_id': partner_id,
-                                        'invoice_line_ids': invoice_lines
-                                    })
-
-                                    raise models.ValidationError(json.dumps(invoice_lines))
+                                            'product_id': product.id,
+                                            'invoice_id': invoice.id
+                                        })
