@@ -84,7 +84,7 @@ class AccountInvoice(models.Model):
 
         taxes = self.invoice_line_ids.mapped('invoice_line_tax_ids').mapped('amount')
 
-        raise models.ValidationError(sum(taxes) / len(taxes))
+        raise models.ValidationError(sum(taxes) / len(self.invoice_line_ids))
 
         if res.status_code != 200:
             if 'error' in response and 'message' in response['error']:
