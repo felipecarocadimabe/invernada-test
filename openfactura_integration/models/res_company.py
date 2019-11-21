@@ -99,6 +99,11 @@ class ResCompany(models.Model):
                                 for line in detail_response['json']['Detalle']:
                                     product = self.env['product.product'].search([('name', '=', line['NmbItem'])])
 
+                                    tax = self.env['account.tax'].search([
+                                        ('name', '=', 'IVA'),
+                                        ('type_tax_use', '=', 'purchase')
+                                    ])
+
                                     if len(product) == 1 and product.product_tmpl_id.property_account_expense_id.id:
                                         self.env['account.invoice.line'].create({
                                             'secuence': line['NroLinDet'],
@@ -106,6 +111,7 @@ class ResCompany(models.Model):
                                             'price_unit': line['PrcItem'],
                                             'price_subtotal': line['MontoItem'],
                                             'product_id': product.id,
+                                            'invoice_line_tax_ids': [tax],
                                             'invoice_id': invoice.id,
                                             'name': '{} {}'.format(product.name, product.description_purchase),
                                             'account_id': product.product_tmpl_id.property_account_expense_id.id
