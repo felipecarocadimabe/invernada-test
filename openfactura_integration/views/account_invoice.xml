@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <field name="payment_term_id" position="after">
                     <field name="dte_type_id"
-                           attr="{'readonly':[('state', 'not in', ['draft'])]}"
+                           attrs="{'readonly':[('state', 'not in', ['draft'])]}"
                     />
                     <field name="dte_payment_mode_id" />
                     <field name="dte_base64_data" widget="url" text="Ver"/>
