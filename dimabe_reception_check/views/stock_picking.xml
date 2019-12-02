@@ -6,7 +6,9 @@
             <field name="inherit_id" ref="stock.view_picking_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//page[@name='extra']" position="before">
-                    <page string="Check List" id="check_list">
+                    <page string="Check List" id="check_list"
+                          attrs="{'invisible':[('has_mp_field', '=', False)]}"
+                    >
                         <group name="check_list" position="inside">
                             <field name="check_list_responses"/>
                         </group>
