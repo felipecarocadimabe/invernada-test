@@ -37,10 +37,10 @@ class StockPicking(models.Model):
         items = self.env['check.list.item']
         return items.search([])
 
-    @api.multi
+    @api.model
     def _compute_has_mp_field(self):
-        for item in self:
-            if 'is_mp_reception' in item.env['stock.picking']._fields:
-                item.has_mp_field = True
-            else:
-                item.has_mp_field = False
+
+        if 'is_mp_reception' in self.env['stock.picking']._fields:
+            self.has_mp_field = True
+        else:
+            self.has_mp_field = False
