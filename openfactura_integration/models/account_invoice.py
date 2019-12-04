@@ -40,6 +40,12 @@ class AccountInvoice(models.Model):
         return lines
 
     def action_invoice_open(self):
+        taxes = []
+
+        for line in self.invoice_line_ids:
+            taxes += line.invoice_line_tax_ids.mapped('amount')
+
+        tax = int(sum(taxes) / len(self.invoice_line_ids))
 
         data = {
             'response': [
@@ -60,7 +66,7 @@ class AccountInvoice(models.Model):
                     'Receptor': self.partner_id.get_receiver_data(),
                     'Totales': {
                         'MntNeto': self.amount_untaxed,
-                        'TasaIVA': "19",
+                        'TasaIVA': str(tax),
                         'IVA': self.amount_tax,
                         'MntTotal': self.amount_total,
                         'MontoPeriodo': self.amount_total,
@@ -83,6 +89,13 @@ class AccountInvoice(models.Model):
         response = json.loads(res.text)
 
         if res.status_code != 200:
+            if 'error' in response and 'message' in response['error']:
+                text = '{} \n'.format(response['error']['message'])
+                if 'details' in response['error']:
+                    for detail in response['error']['details']:
+                        if 'field' in detail and 'issue' in detail:
+                            text += '{} {} \n'.format(detail['field'], detail['issue'])
+                raise models.ValidationError(text)
             raise models.ValidationError(res.text)
 
         self.dte_base64_data = 'data:application/pdf;base64,{}'.format(response['PDF'])

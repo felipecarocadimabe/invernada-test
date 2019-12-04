@@ -47,7 +47,8 @@ class PurchaseOrder(models.Model):
             data = self._cr.fetchall()
             if len(data) == 1 and len(data[0]) == 1 and type(data[0][0]) is int:
                 self.hes_number = data[0][0] + 1
-
+            else:
+                self.hes_number = 1
         return self
 
     @api.returns('self')

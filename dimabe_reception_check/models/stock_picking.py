@@ -10,6 +10,11 @@ class StockPicking(models.Model):
         'Check List'
     )
 
+    has_mp_field = fields.Boolean(
+        'tiene campo mp',
+        compute='_compute_has_mp_field'
+    )
+
     @api.model
     def create(self, val_list):
         items = self.get_all_check_list_items()
@@ -31,3 +36,11 @@ class StockPicking(models.Model):
     def get_all_check_list_items(self):
         items = self.env['check.list.item']
         return items.search([])
+
+    @api.model
+    def _compute_has_mp_field(self):
+
+        if 'is_mp_reception' in self.env['stock.picking']._fields:
+            self.has_mp_field = True
+        else:
+            self.has_mp_field = False
