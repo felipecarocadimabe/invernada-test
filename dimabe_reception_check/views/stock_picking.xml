@@ -7,7 +7,7 @@
             <field name="arch" type="xml">
                 <field name="origin" position="after">
                     <field name="picking_type_code" invisible="1" />
-                    <field name="has_mp_field" />
+                    <field name="has_mp_field" invisible="1" />
                 </field>
                 <xpath expr="//page[@name='extra']" position="before">
                     <page string="Check List" id="check_list"
