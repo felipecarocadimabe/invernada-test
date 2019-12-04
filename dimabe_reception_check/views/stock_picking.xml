@@ -11,7 +11,7 @@
                 </field>
                 <xpath expr="//page[@name='extra']" position="before">
                     <page string="Check List" id="check_list"
-                          attrs="{'invisible':['|', ('has_mp_field', '=', False), ('picking_type_code', '=', 'outgoing')]}"
+                          attrs="{'invisible':['|', ('has_mp_field', '=', True), ('picking_type_code', '=', 'outgoing')]}"
                     >
                         <group name="check_list" position="inside">
                             <field name="check_list_responses"/>
