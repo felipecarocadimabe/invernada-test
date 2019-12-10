@@ -7,9 +7,7 @@
             <tree delete="false" create="false" editable="bottom">
                 <field name="item"/>
                 <field name="response"/>
-                <field name="documents"
-                       widget="many2many_binary"
-                />
+                <field name="documents"/>
                 <field name="observation"/>
             </tree>
         </field>
