@@ -4,7 +4,7 @@
         <field name="name">Check List Tree</field>
         <field name="model">check.list.response</field>
         <field name="arch" type="xml">
-            <tree delete="false" create="false">
+            <tree delete="false" create="false" editable="bottom">
                 <field name="item"/>
                 <field name="response"/>
                 <field name="documents"/>
