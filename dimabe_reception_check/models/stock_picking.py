@@ -41,6 +41,6 @@ class StockPicking(models.Model):
     def _compute_has_mp_field(self):
 
         if 'is_mp_reception' in self.env['stock.picking']._fields:
-            self.has_mp_field = True
+            self.has_mp_field = self.is_mp_reception
         else:
             self.has_mp_field = False
