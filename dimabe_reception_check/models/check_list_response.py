@@ -26,6 +26,10 @@ class CheckListResponse(models.Model):
         'Revisión'
     )
 
+    documents = fields.Binary(
+        'Adjuntos'
+    )
+
     observation = fields.Text(
         'Observación',
         nullable=True,
