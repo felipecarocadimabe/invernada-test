@@ -9,7 +9,7 @@ class PurchaseRequisition(models.Model):
 
         item = super(PurchaseRequisition, self).create(vals_list)
 
-        channel = self.env.ref('mail_channel.channel_purchase_requisition_record')
+        channel = self.env.ref('mail.channel_purchase_requisition_record')
 
         if channel:
             item.message_channel_ids = channel
