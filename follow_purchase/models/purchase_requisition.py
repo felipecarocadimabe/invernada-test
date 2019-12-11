@@ -11,7 +11,7 @@ class PurchaseRequisition(models.Model):
 
         channel = self.env.ref('follow_purchase.channel_purchase_requisition_record')
 
-        raise models.ValidationError(vals_list)
+        raise models.ValidationError(vals_list['message_channel_ids'])
 
         if channel:
             item.message_channel_ids = channel
