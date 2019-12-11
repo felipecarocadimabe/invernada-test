@@ -1,7 +1,5 @@
 <odoo>
-    <data>
-        <record id="channel_purchase_requisition_record">
-            <field name="name">Solicitudes de Compra</field>
-        </record>
-    </data>
+    <record id="channel_purchase_requisition_record">
+        <field name="name">Solicitudes de Compra</field>
+    </record>
 </odoo>
