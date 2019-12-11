@@ -23,6 +23,7 @@
     'depends': [
         'base',
         'purchase',
+        'purchase_requisition',
         'mail'
     ],
 
