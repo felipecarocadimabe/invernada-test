@@ -9,6 +9,8 @@ class PurchaseRequisition(models.Model):
 
         item = super(PurchaseRequisition, self).create(vals_list)
 
+        raise models.ValidationError(item)
+
         channel = self.env.ref('follow_purchase.channel_purchase_requisition_record')
 
         if channel:
