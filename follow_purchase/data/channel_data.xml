@@ -1,5 +1,5 @@
 <odoo>
-    <record id="channel_purchase_requisition_record">
+    <record id="channel_purchase_requisition_record" model="mail.channel">
         <field name="name">Solicitudes de Compra</field>
     </record>
 </odoo>
