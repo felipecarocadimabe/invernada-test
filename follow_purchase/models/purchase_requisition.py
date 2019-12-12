@@ -21,3 +21,8 @@ class PurchaseRequisition(models.Model):
         mail_wizard_invite.add_followers()
 
         return item
+
+    @api.multi
+    def action_in_progress(self):
+        self.ensure_one()
+        raise models.ValidationError(self.message_ids)
