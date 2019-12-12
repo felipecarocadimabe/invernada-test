@@ -22,8 +22,7 @@
     # any module necessary for this one to work correctly
     'depends': [
         'base',
-        'account',
-        'mail'
+        'account'
     ],
 
     # always loaded
