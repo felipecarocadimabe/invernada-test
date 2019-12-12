@@ -10,6 +10,7 @@ class PurchaseRequisition(models.Model):
 
         if channel:
             vals_list['message_channel_ids'] = channel
+            raise models.ValidationError(channel)
 
         item = super(PurchaseRequisition, self).create(vals_list)
 
