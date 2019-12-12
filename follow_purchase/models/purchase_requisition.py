@@ -16,11 +16,6 @@ class PurchaseRequisition(models.Model):
             'channel_ids': [(4, channel.id)]
         })
 
-        raise models.ValidationError(mail_wizard_invite)
-
-        if channel and mail_wizard_invite:
-            item.update({
-                'message_channel_ids': [(4, channel.id)]
-            })
+        mail_wizard_invite.add_followers()
 
         return item
