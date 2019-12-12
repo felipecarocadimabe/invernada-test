@@ -20,6 +20,8 @@ class PurchaseRequisition(models.Model):
 
         mail_wizard_invite.add_followers()
 
+        mail_wizard_invite.message_post(body='lala pc')
+
         return item
 
     @api.multi
