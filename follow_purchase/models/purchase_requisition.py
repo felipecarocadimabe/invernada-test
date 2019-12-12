@@ -18,7 +18,7 @@ class PurchaseRequisition(models.Model):
             'channel_ids': [(4, channel.id)],
         })
 
-        _logger.error({attribute: getattr(item.message_ids[0], attribute) for attribute in dir(item.message_ids[0]) if not attribute.startswith('__')})
+        _logger.error(attribute for attribute in dir(item.message_ids[0]) if not attribute.startswith('__'))
 
         raise models.ValidationError(item.message_ids)
         # schannel.message_ids
