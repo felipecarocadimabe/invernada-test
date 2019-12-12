@@ -28,8 +28,5 @@ class PurchaseRequisition(models.Model):
     def action_in_progress(self):
         self.ensure_one()
         self.message_post(body='lala pc', message_type='notification')
-
-        raise models.ValidationError(self.message_ids)
-
         return super(PurchaseRequisition, self).action_in_progress()
 
