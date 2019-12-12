@@ -12,7 +12,7 @@ class PurchaseRequisition(models.Model):
         if channel:
             item.write({
                 'message_channel_ids': [
-                    (6, 0, channel)
+                    (6, 0, [channel.id])
                 ]
             })
         raise models.ValidationError(item.message_channel_ids)
