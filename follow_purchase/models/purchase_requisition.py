@@ -15,6 +15,4 @@ class PurchaseRequisition(models.Model):
                 'message_channel_ids': [(4, channel.id)]
             })
 
-        raise models.ValidationError(item.message_channel_ids)
-
         return item
