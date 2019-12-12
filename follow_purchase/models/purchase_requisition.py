@@ -13,6 +13,11 @@ class PurchaseRequisition(models.Model):
 
         item = super(PurchaseRequisition, self).create(vals_list)
 
-        raise models.ValidationError(item.message_channel_ids)
+        if channel:
+            item.write({
+                'message_channel_ids': [(4, channel.id)]
+            })
+
+        raise models.ValidationError(self.env['purchase.requisition'].search([('id', '=', item.id)]).message_channel_ids)
 
         return item
