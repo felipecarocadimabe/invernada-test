@@ -10,8 +10,11 @@ class PurchaseRequisition(models.Model):
 
         item = super(PurchaseRequisition, self).create(vals_list)
 
-        mail_wizard_invite = self.env['mail.wizard.invite']\
-            .search([('res_model', '=', 'purchase.requisition'), ('res_id', '=', item.id)])
+        mail_wizard_invite = self.env['mail.wizard.invite'].create({
+            'res_model': 'purchase.requisition',
+            'res_id': item.id,
+            'channel_ids': [(4, channel.id)]
+        })
 
         raise models.ValidationError(mail_wizard_invite)
 
