@@ -30,7 +30,7 @@ class PurchaseRequisition(models.Model):
         self.message_post(
             body='Se ha confirmado una nueva solicitud',
             message_type='email',
-            subtype='Conversaciones'
+            subtype=1
         )
         # subtipos = self.env['mail.message.subtype'].search([('name', '=', 'Conversaciones')])
         # raise models.ValidationError(subtipos)
