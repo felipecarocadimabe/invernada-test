@@ -4,7 +4,7 @@ _logger = logging.getLogger(__name__)
 
 
 class PurchaseRequisition(models.Model):
-    _inherit = ['purchase.requisition', 'mail.thread']
+    _inherit = ['purchase.requisition']
 
     @api.model
     def create(self, vals_list):
@@ -19,8 +19,6 @@ class PurchaseRequisition(models.Model):
         })
 
         mail_wizard_invite.add_followers()
-
-        mail_wizard_invite.message_post(body='lala pc')
 
         return item
 
