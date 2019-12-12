@@ -8,6 +8,9 @@ class PurchaseRequisition(models.Model):
     def create(self, vals_list):
         channel = self.env.ref('follow_purchase.channel_purchase_requisition_record')
 
+        if channel:
+            vals_list['message_channel_ids'] = [(4, channel.id)]
+
         item = super(PurchaseRequisition, self).create(vals_list)
 
         if channel:
