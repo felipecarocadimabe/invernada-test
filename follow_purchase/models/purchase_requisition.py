@@ -18,7 +18,11 @@ class PurchaseRequisition(models.Model):
             'channel_ids': [(4, channel.id)],
         })
 
-        _logger.error(attribute for attribute in dir(item.message_ids[0]) if not attribute.startswith('__'))
+        mail_message = self.env['mail.message'].create({
+            'body': 'lalala automatico'
+        })
+
+        item.message_ids = [(4, mail_message.id)]
 
         raise models.ValidationError(item.message_ids)
         # schannel.message_ids
