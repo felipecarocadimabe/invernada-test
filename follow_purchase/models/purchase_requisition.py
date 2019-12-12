@@ -27,6 +27,6 @@ class PurchaseRequisition(models.Model):
     @api.multi
     def action_in_progress(self):
         self.ensure_one()
-        self.message_post(body='lala pc', message_type='notification')
+        self.message_post(body='lala pc', message_type='comment')
         return super(PurchaseRequisition, self).action_in_progress()
 
