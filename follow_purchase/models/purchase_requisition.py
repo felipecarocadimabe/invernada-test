@@ -16,7 +16,7 @@ class PurchaseRequisition(models.Model):
             'channel_ids': [(4, channel.id)],
         })
 
-        raise models.ValidationError(channel.message_ids.map('body'))
+        raise models.ValidationError(channel.message_ids.body)
         # schannel.message_ids
 
         mail_wizard_invite.add_followers()
