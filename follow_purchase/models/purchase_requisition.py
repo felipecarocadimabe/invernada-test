@@ -10,7 +10,12 @@ class PurchaseRequisition(models.Model):
 
         item = super(PurchaseRequisition, self).create(vals_list)
 
-        if channel:
+        mail_wizard_invite = self.env['mail.wizard.invite']\
+            .search([('res_model', '=', 'purchase.requisition'), ('res_id', '=', item.id)])
+
+        raise models.ValidationError(mail_wizard_invite)
+
+        if channel and mail_wizard_invite:
             item.update({
                 'message_channel_ids': [(4, channel.id)]
             })
