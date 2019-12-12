@@ -6,6 +6,8 @@ _logger = logging.getLogger(__name__)
 class PurchaseRequisition(models.Model):
     _inherit = ['purchase.requisition', 'mail.thread']
 
+    _name = 'purchase.requisition'
+
     @api.model
     def create(self, vals_list):
         channel = self.env.ref('follow_purchase.channel_purchase_requisition_record')
