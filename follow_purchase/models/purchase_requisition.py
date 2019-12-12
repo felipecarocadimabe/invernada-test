@@ -4,7 +4,7 @@ _logger = logging.getLogger(__name__)
 
 
 class PurchaseRequisition(models.Model):
-    _inherit = ['purchase.requisition', 'mail.thread', 'ir.needaction_mixin']
+    _inherit = ['purchase.requisition']
 
     @api.model
     def create(self, vals_list):
