@@ -25,4 +25,5 @@ class PurchaseRequisition(models.Model):
     @api.multi
     def action_in_progress(self):
         self.ensure_one()
+        self.message_ids = [(0, 0, {'body': 'lala pc'})]
         raise models.ValidationError(self.message_ids)
