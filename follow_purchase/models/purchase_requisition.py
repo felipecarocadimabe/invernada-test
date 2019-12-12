@@ -7,10 +7,13 @@ class PurchaseRequisition(models.Model):
     @api.model
     def create(self, vals_list):
         channel = self.env.ref('follow_purchase.channel_purchase_requisition_record')
-        if channel:
-            vals_list['message_channel_ids'] = [(6, 0, [channel.id])]
 
         item = super(PurchaseRequisition, self).create(vals_list)
+
+        if channel:
+            item.write({
+                'message_channel_ids': [(6, 0, [channel.id])]
+            })
 
         raise models.ValidationError(item.message_channel_ids)
 
