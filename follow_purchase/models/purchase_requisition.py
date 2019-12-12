@@ -13,7 +13,8 @@ class PurchaseRequisition(models.Model):
         mail_wizard_invite = self.env['mail.wizard.invite'].create({
             'res_model': 'purchase.requisition',
             'res_id': item.id,
-            'channel_ids': [(4, channel.id)]
+            'channel_ids': [(4, channel.id)],
+            'message': 'nueva solicitud creada'
         })
 
         mail_wizard_invite.add_followers()
