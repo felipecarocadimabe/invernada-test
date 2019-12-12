@@ -1,4 +1,6 @@
 from odoo import models, fields, api
+import logging
+_logger = logging.getLogger(__name__)
 
 
 class PurchaseRequisition(models.Model):
@@ -15,6 +17,8 @@ class PurchaseRequisition(models.Model):
             'res_id': item.id,
             'channel_ids': [(4, channel.id)],
         })
+
+        _logger.error(item.message_ids)
 
         raise models.ValidationError(item.message_ids)
         # schannel.message_ids
