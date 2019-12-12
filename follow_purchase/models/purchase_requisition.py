@@ -14,7 +14,7 @@ class PurchaseRequisition(models.Model):
         item = super(PurchaseRequisition, self).create(vals_list)
 
         if channel:
-            item.write({
+            item.update({
                 'message_channel_ids': [(4, channel.id)]
             })
 
