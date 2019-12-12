@@ -28,3 +28,5 @@ class PurchaseRequisition(models.Model):
         self.ensure_one()
         self.message_post(body='lala pc', message_type='notification')
 
+        return super(PurchaseRequisition, self).action_in_progress()
+
