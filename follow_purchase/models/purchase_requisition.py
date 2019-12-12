@@ -4,7 +4,7 @@ _logger = logging.getLogger(__name__)
 
 
 class PurchaseRequisition(models.Model):
-    _inherit = ['purchase.requisition']
+    _inherit = ['purchase.requisition', 'mail.thread']
 
     @api.model
     def create(self, vals_list):
@@ -25,5 +25,5 @@ class PurchaseRequisition(models.Model):
     @api.multi
     def action_in_progress(self):
         self.ensure_one()
-        self.message_ids = [(0, 0, {'body': 'lala pc', 'message_type': 'notification'})]
+        self.message_post(body='lala pc', message_type='notification')
         raise models.ValidationError(self.message_ids)
