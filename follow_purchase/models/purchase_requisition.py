@@ -24,8 +24,7 @@ class PurchaseRequisition(models.Model):
 
         item.message_ids = [(4, mail_message.id)]
 
-        raise models.ValidationError(item.message_ids)
-        # schannel.message_ids
+        # raise models.ValidationError(item.message_ids)
 
         mail_wizard_invite.add_followers()
 
