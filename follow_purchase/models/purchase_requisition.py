@@ -18,6 +18,6 @@ class PurchaseRequisition(models.Model):
                 'message_channel_ids': [(4, channel.id)]
             })
 
-        raise models.ValidationError(self.env['purchase.requisition'].search([('id', '=', item.id)]).message_channel_ids)
+        raise models.ValidationError(item.message_channel_ids)
 
         return item
