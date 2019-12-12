@@ -18,14 +18,6 @@ class PurchaseRequisition(models.Model):
             'channel_ids': [(4, channel.id)],
         })
 
-        mail_message = self.env['mail.message'].create({
-            'body': 'lalala automatico'
-        })
-
-        item.message_ids = [(4, mail_message.id)]
-
-        # raise models.ValidationError(item.message_ids)
-
         mail_wizard_invite.add_followers()
 
         return item
