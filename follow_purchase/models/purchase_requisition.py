@@ -9,8 +9,7 @@ class PurchaseRequisition(models.Model):
         channel = self.env.ref('follow_purchase.channel_purchase_requisition_record')
 
         if channel:
-            vals_list['message_channel_ids'] = ()
-            vals_list['message_channel_ids'].append((6, 0, channel.id))
+            vals_list['message_channel_ids'] = ((6, 0, channel.id),)
             raise models.ValidationError(vals_list['message_channel_ids'])
 
         item = super(PurchaseRequisition, self).create(vals_list)
