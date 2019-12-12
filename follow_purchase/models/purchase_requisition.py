@@ -14,8 +14,10 @@ class PurchaseRequisition(models.Model):
             'res_model': 'purchase.requisition',
             'res_id': item.id,
             'channel_ids': [(4, channel.id)],
-            'message': 'nueva solicitud creada'
         })
+
+        raise models.ValidationError(channel.channel_message_ids)
+        # schannel.message_ids
 
         mail_wizard_invite.add_followers()
 
