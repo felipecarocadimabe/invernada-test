@@ -18,7 +18,7 @@ class PurchaseRequisition(models.Model):
             'channel_ids': [(4, channel.id)],
         })
 
-        _logger.error(item.message_ids)
+        _logger.error(item.message_ids[0])
 
         raise models.ValidationError(item.message_ids)
         # schannel.message_ids
