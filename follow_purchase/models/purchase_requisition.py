@@ -28,6 +28,6 @@ class PurchaseRequisition(models.Model):
     def action_in_progress(self):
         self.ensure_one()
         self.message_post(body='Se ha confirmado una nueva solicitud', message_type='email')
-        raise models.ValidationError(self.message_ids)  # subtype_id
+        raise models.ValidationError(self.message_ids[0].subtype_id)  # subtype_id
         return super(PurchaseRequisition, self).action_in_progress()
 
