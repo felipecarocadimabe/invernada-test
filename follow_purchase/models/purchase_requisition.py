@@ -25,5 +25,5 @@ class PurchaseRequisition(models.Model):
     @api.multi
     def action_in_progress(self):
         self.ensure_one()
-        self.message_ids = [(0, 0, {'body': 'lala pc'})]
+        self.message_ids = [(0, 0, {'body': 'lala pc', 'message_type': 'notification'})]
         raise models.ValidationError(self.message_ids)
