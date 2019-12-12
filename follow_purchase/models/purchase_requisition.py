@@ -13,11 +13,6 @@ class PurchaseRequisition(models.Model):
 
         item = super(PurchaseRequisition, self).create(vals_list)
 
-        if channel:
-            item.write({
-                'message_channel_ids': [(4, channel.id)]
-            })
-
         raise models.ValidationError(item.message_channel_ids)
 
         return item
