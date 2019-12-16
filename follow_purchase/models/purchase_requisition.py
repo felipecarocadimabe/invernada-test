@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, api
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -24,16 +24,13 @@ class PurchaseRequisition(models.Model):
 
         return item
 
-    @api.multi
-    def action_in_progress(self):
-        self.ensure_one()
-        self.message_post(
-            body='Se ha confirmado una nueva solicitud',
-            message_type='email',
-            subtype='Conversaciones'
-        )
-        # subtipos = self.env['mail.message.subtype'].search([('name', '=', 'Conversaciones')])
-        # raise models.ValidationError(subtipos)
-        # raise models.ValidationError(self.message_ids[0].subtype_id.name)  # subtype_id
-        return super(PurchaseRequisition, self).action_in_progress()
+    # @api.multi
+    # def action_in_progress(self):
+    #     self.ensure_one()
+    #     self.message_post(
+    #         body='Se ha confirmado una nueva solicitud',
+    #         message_type='email',
+    #         subtype='Conversaciones'
+    #     )
+    #     return super(PurchaseRequisition, self).action_in_progress()
 
