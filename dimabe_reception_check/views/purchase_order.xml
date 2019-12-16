@@ -15,7 +15,7 @@
             <group name="hes_page" position="inside">
               <group>
                 <field name="hes_number"/>
-                <field name="has_service" invisible="1"/>
+                <field name="has_service"/>
               </group>
               <group>
                 <button type="object"
