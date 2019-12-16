@@ -23,11 +23,13 @@ class PurchaseOrder(models.Model):
 
     has_service = fields.Boolean(
         'Tiene Servicio',
-        compute='_has_service_line'
+        compute='_has_service_line',
+        default=False
     )
 
     @api.model
     def _has_service_line(self):
+        self.has_service = False
         for line in self.order_line:
             if line.product_id.type == 'service':
                 self.has_service = True
